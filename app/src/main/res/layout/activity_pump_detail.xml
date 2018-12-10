@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        >
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/return_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="15dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/btn_back" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="28px"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="泵站详情" />
+
+        <ImageView
+            android:id="@+id/iv_video"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_video"
+            android:layout_marginRight="20px"
+            />
+    </RelativeLayout>
+<com.scwang.smartrefresh.layout.SmartRefreshLayout
+    android:id="@+id/refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    app:srlPrimaryColor="#444444"
+    app:srlAccentColor="@android:color/white"
+    app:srlEnablePreviewInEditMode="true">
+    <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+    <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+    <com.scwang.smartrefresh.layout.header.ClassicsHeader
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <ScrollView
+        android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/rl_notify"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@color/white"
+            >
+
+            <ImageView
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/notify" />
+
+            <TextView
+                android:layout_marginLeft="12dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_notify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28px"
+                android:textColor="@color/title_color"
+                android:textSize="30px"
+                android:text="预警通知" />
+
+            <TextView
+                android:id="@+id/tv_notify_num"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:text="4"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:background="@drawable/unread_msg_red"
+                android:layout_marginRight="20px"
+                />
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/common_d"
+            >
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_width="4dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/title_color"
+                android:text="水位流量"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="14dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="实时水位： "
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_cur_lev"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="- 米"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="实时流量： "
+                    android:textColor="@color/text_hint"
+                    android:textSize="12sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_cur_qul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="- m³/H"
+                    android:textColor="@color/title_color"
+                    android:textSize="12sp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart1"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
+            android:layout_above="@+id/seekBar1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/common_d"
+            >
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_width="4dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/title_color"
+                android:text="电压表"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart2"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_margin="10dp"
+            android:layout_above="@+id/chart1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/common_d"
+            >
+            <View
+                android:layout_marginLeft="20dp"
+                android:layout_width="4dp"
+                android:layout_height="20dp"
+                android:background="@color/colorAccent"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:textColor="@color/title_color"
+                android:text="电机状态"
+                android:layout_marginLeft="10dp"
+                />
+        </LinearLayout>
+        <com.wfwlf.mark.pumb.ui.NoScrollListView
+            android:id="@+id/lv_nap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.wfwlf.mark.pumb.ui.NoScrollListView>
+    </LinearLayout>
+</ScrollView>
+</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+
+</LinearLayout>

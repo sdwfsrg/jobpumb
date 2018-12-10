@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <com.wfwlf.mark.pumb.ui.CircleImageView
+        android:layout_marginTop="33px"
+        android:layout_marginLeft="30px"
+        android:layout_marginBottom="30px"
+        android:id="@+id/iv_header"
+        android:layout_width="80px"
+        android:layout_height="80px" />
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginTop="30px"
+        android:layout_toRightOf="@+id/iv_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="青蛙姐姐"
+        android:textSize="30px"
+        android:layout_marginLeft="20px"
+        android:textColor="#333"
+        />
+
+    <TextView
+        android:id="@+id/ll_tips"
+        android:layout_below="@+id/tv_name"
+        android:layout_marginTop="10px"
+        android:layout_toRightOf="@+id/iv_header"
+        android:layout_marginLeft="20px"
+        android:orientation="horizontal"
+        android:text="dddddd"
+        android:textSize="22px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_marginRight="25px"
+        android:layout_marginTop="30px"
+        android:layout_alignParentRight="true"
+        android:id="@+id/shop_collection"
+        android:gravity="center"
+
+        android:background="@drawable/shop_collection"
+        android:layout_width="100px"
+        android:layout_height="40px">
+        <ImageView
+            android:id="@+id/iv_star"
+            android:layout_marginRight="6px"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/shop_collect"
+            />
+        <TextView
+            android:id="@+id/tv_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22px"
+            android:text="收藏"
+            android:textColor="#7dbbfa"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <TextView
+        android:id="@+id/tv_dis"
+        android:layout_marginTop="12px"
+        android:layout_below="@+id/shop_collection"
+        android:layout_marginRight="25px"
+
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#999"
+        android:textSize="22px"
+        android:text="距您500m"
+
+        />
+    <View
+        android:layout_marginLeft="20px"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#dcdcdc"
+        />
+</com.zhy.autolayout.AutoRelativeLayout>

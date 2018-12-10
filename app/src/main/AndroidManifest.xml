@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.wfwlf.mark.pumb">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.hardware.camera"/>
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+
+
+    <application
+        android:name=".MjlApplication"
+        android:allowBackup="true"
+        tools:replace="android:name"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data android:name="Mob-AppKey" android:value="2748121bb403d"/>
+        <meta-data android:name="Mob-AppSecret" android:value="ede7bee617b8cea05371b0d55cb6ffc2"/>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="FrRp8079ma3kg80rlCpyrcUpcLYGNYv2" />
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote">
+        </service>
+        <activity android:name=".ui.MainActivity">
+
+        </activity>
+
+        <activity
+            android:name=".ui.WelcomeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeStyle">
+        </activity>
+
+        <activity android:name=".ui.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".ui.PumpDetailActivity" />
+        <activity android:name=".ui.NotifyActivity" />
+        <activity android:name=".ui.VideoRecodeActivity" />
+        <activity android:name=".ui.AccountActivity" />
+        <activity android:name=".ui.VideoActivity"
+            />
+        <activity
+            android:name="com.videogo.main.EzvizWebViewActivity"
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:configChanges="orientation|keyboardHidden">
+        </activity>
+        <activity android:name=".ui.PlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            />
+        <activity android:name=".ui.cameralist.EZCameraListActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".ui.EZRealPlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+        <receiver
+            android:name=".manager.YSBroadcastReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.videogo.action.OAUTH_SUCCESS_ACTION" />
+            </intent-filter>
+        </receiver>
+        <meta-data
+            android:name="design_width"
+            android:value="720">
+
+        </meta-data>
+
+        <meta-data
+            android:name="design_height"
+            android:value="1280">
+
+        </meta-data>
+    </application>
+
+</manifest>
