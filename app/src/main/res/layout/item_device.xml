@@ -16,6 +16,7 @@
         android:textColor="#333"
         />
     <TextView
+        android:visibility="gone"
         android:layout_centerVertical="true"
         android:layout_marginRight="25px"
         android:layout_marginTop="30px"
@@ -95,6 +96,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:visibility="gone"
         android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="25dp"
@@ -115,6 +117,48 @@
             android:textColor="@color/title_color"
             android:textSize="12sp"
             />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_isremote"
+                android:layout_centerInParent="true"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/remote"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_isauto"
+                android:layout_centerInParent="true"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/auto"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/iv_isoff"
+                android:layout_centerInParent="true"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/off"
+                />
+        </RelativeLayout>
     </LinearLayout>
     <View
         android:layout_marginTop="10dp"

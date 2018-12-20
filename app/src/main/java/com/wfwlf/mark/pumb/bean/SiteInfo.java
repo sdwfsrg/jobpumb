@@ -79,8 +79,11 @@ public class SiteInfo extends BaseVO {
          * voltageV : 325
          * voltageW : 354
          * dataTime : 2018-11-30 10:13:47
+         * controlType
          */
 
+
+        private int controlType;
         private String pumpId;
         private String pumpDataId;
         private float voltageAll;
@@ -100,6 +103,14 @@ public class SiteInfo extends BaseVO {
 
         public void setPumpId(String pumpId) {
             this.pumpId = pumpId;
+        }
+
+        public int getControlType() {
+            return controlType;
+        }
+
+        public void setControlType(int controlType) {
+            this.controlType = controlType;
         }
 
         public String getPumpDataId() {

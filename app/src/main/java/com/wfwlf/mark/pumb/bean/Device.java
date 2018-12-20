@@ -75,8 +75,10 @@ public class Device extends BaseVO {
          * motorStatus : 0
          * runTime : 6天 18:19:10
          * totalRunTime : 12天 02:39:10
+         * controlModel
          */
 
+        private int controlModel;
         private String deviceName;
         private String currentU;
         private String currentV;
@@ -85,6 +87,14 @@ public class Device extends BaseVO {
         private String motorStatus;
         private String runTime;
         private String totalRunTime;
+
+        public int getControlModel() {
+            return controlModel;
+        }
+
+        public void setControlModel(int controlModel) {
+            this.controlModel = controlModel;
+        }
 
         public String getDeviceName() {
             return deviceName;

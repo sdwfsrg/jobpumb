@@ -55,7 +55,7 @@ public class PermissionUtil {
      * @return 是否已经获取权限，没有自动申请
      */
     public static boolean getLocationPermissions(@NonNull Activity activity, int requestCode) {
-        return requestPerssions(activity, requestCode, Manifest.permission.ACCESS_COARSE_LOCATION);
+        return requestPerssions(activity, requestCode, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
     /**
      * 获取读取联系人权限

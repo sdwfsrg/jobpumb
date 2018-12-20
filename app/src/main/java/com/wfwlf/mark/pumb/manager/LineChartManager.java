@@ -1,7 +1,10 @@
 package com.wfwlf.mark.pumb.manager;
 
+import android.view.ViewGroup;
+
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
@@ -10,6 +13,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
 import java.util.ArrayList;
@@ -28,6 +32,7 @@ public class LineChartManager {
     public LineChartManager(LineChart mLineChart) {
         this.lineChart = mLineChart;
         leftAxis = lineChart.getAxisLeft();
+        leftAxis.setTextSize(9);
         leftAxis.setDrawLabels(true
         );
         rightAxis = lineChart.getAxisRight();
@@ -50,7 +55,7 @@ public class LineChartManager {
         //折线图例 标签 设置
         Legend legend = lineChart.getLegend();
         legend.setForm(Legend.LegendForm.LINE);
-        legend.setTextSize(12f);
+        legend.setTextSize(10f);
         //显示位置
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -78,14 +83,14 @@ public class LineChartManager {
         lineDataSet.setColor(color);
         lineDataSet.setCircleColor(color);
         lineDataSet.setLineWidth(1f);
-        lineDataSet.setCircleRadius(3f);
+        lineDataSet.setCircleRadius(1f);
         //设置曲线值的圆点是实心还是空心
-        lineDataSet.setDrawCircleHole(false);
+        lineDataSet.setDrawCircleHole(true);
         lineDataSet.setValueTextSize(0f);
         //设置折线图填充
         lineDataSet.setDrawFilled(mode);
         lineDataSet.setFormLineWidth(1f);
-        lineDataSet.setFormSize(15.f);
+        lineDataSet.setFormSize(12.f);
         //填充颜色.透明度
 //        lineDataSet.setFillColor(Color.BLUE);
         lineDataSet.setFillAlpha(35);
@@ -128,7 +133,7 @@ public class LineChartManager {
      * @param labels
      * @param colours
      */
-    public void showLineChart(List<Float> xAxisValues, List<List<Float>> yAxisValues, List<String> labels, List<Integer> colours) {
+    public void showLineChart(List<Float> xAxisValues, List<List<Float>> yAxisValues, List<String> labels, List<Integer> colours, final List<String> datas) {
         initLineChart();
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         for (int i = 0; i < yAxisValues.size(); i++) {
@@ -146,6 +151,12 @@ public class LineChartManager {
         }
         LineData data = new LineData(dataSets);
         xAxis.setLabelCount(xAxisValues.size(), true);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return datas.get((int) (value)) + "";
+            }
+        });
         lineChart.setData(data);
     }
 

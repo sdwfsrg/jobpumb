@@ -4,12 +4,14 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.VolleyError;
 import com.wfwlf.mark.pumb.NetValues;
 import com.wfwlf.mark.pumb.R;
+import com.wfwlf.mark.pumb.util.CommonUtils;
 import com.wfwlf.mark.pumb.util.PermissionUtil;
 import com.wfwlf.mark.pumb.util.SPUtils;
 import com.wfwlf.mark.pumb.volley.BaseVO;
@@ -22,14 +24,21 @@ public class WelcomeActivity extends AppCompatActivity implements PermissionUtil
     private Context mContext;
     private static final int REQUEST_CODE_CAMERA = 101;
     NetValues netValues;
+    Handler handler=new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         netValues=new NetValues(this);
         mContext = this;
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                initData();
+            }
+        },2000);
 
-        initData();
+
     }
     void getpermission(){
         PermissionUtil.requestPerssions(this, REQUEST_CODE_CAMERA, Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -44,7 +53,12 @@ public class WelcomeActivity extends AppCompatActivity implements PermissionUtil
     }
     private void initData() {
         //检测账号是否登陆
-
+        if(CommonUtils.checkNull((String)SPUtils.get(this,"key",""))){
+            goToMainActivity();
+        }else {
+            startActivity(new Intent(mContext, LoginActivity.class));
+            finish();
+        }
 
     }
 

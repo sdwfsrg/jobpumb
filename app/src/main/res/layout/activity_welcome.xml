@@ -5,6 +5,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/start_page"
     tools:context=".ui.WelcomeActivity">
+     <ImageView
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:src="@drawable/start_page"
+         android:scaleType="centerCrop"
+         />
 </RelativeLayout>

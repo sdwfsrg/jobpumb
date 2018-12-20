@@ -1,8 +1,10 @@
 package com.wfwlf.mark.pumb.ui;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Selection;
@@ -21,19 +23,23 @@ import com.wfwlf.mark.pumb.util.CommonUtils;
 import com.wfwlf.mark.pumb.bean.LoginBean;
 import com.wfwlf.mark.pumb.NetValues;
 import com.wfwlf.mark.pumb.R;
+import com.wfwlf.mark.pumb.util.PermissionUtil;
 import com.wfwlf.mark.pumb.util.SPUtils;
 import com.wfwlf.mark.pumb.volley.BaseVO;
 import com.wfwlf.mark.pumb.volley.MyErrorListener;
 import com.wfwlf.mark.pumb.volley.MyReponseListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements PermissionUtil.OnRequestPermissionsResultCallbacks  {
 
 
+    private static final int REQUEST_CODE_CAMERA = 101;
     NetValues netValues;
 
 
@@ -61,12 +67,20 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         netValues = NetValues.getInstance(this);
         mContext = this;
-        if(CommonUtils.checkNull((String)SPUtils.get(this,"key",""))){
-            CommonUtils.startActivity(LoginActivity.this,MainActivity.class);
-            finish();
-        }
+        getpermission();
     }
 
+    void getpermission(){
+        PermissionUtil.requestPerssions(this, REQUEST_CODE_CAMERA, Manifest.permission.CAMERA, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE);
+        PermissionUtil.getCameraPermissions(this, REQUEST_CODE_CAMERA);
+        PermissionUtil. getLocationPermissions(this,REQUEST_CODE_CAMERA);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionUtil.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -120,5 +134,15 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms, boolean isAllGranted) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms, boolean isAllDenied) {
+
     }
 }
