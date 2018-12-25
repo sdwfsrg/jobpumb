@@ -3239,9 +3239,9 @@ public class EZRealPlayActivity extends Activity implements OnClickListener, Sur
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         switch (v.getId()) {
-            case R.id.realplay_pages_gallery:
-                mRealPlayTouchListener.touch(event);
-                break;
+//            case R.id.realplay_pages_gallery:
+//                mRealPlayTouchListener.touch(event);
+//                break;
             case R.id.realplay_full_operate_bar:
                 return true;
             default:

@@ -57,6 +57,8 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
 
     private Button mBtnPlay ,mBtnLeft,mBtnRight,mBtnup,mBtndown;
     private LinearLayout back;
+    ImageButton ptzzominBtn ;
+    ImageButton ptzzomoutBtn;
     /**
      * onresume时是否恢复播放
      */
@@ -125,9 +127,9 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+//                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         super.onCreate(savedInstanceState);
         LogUtil.d(TAG,"onCreate");
         setContentView(R.layout.activity_play);
@@ -152,6 +154,12 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
             finish();
             return;
         }
+        initview();
+        preparePlay();
+        setSurfaceSize();
+    }
+
+    private void initview() {
         mOrientationDetector = new MyOrientationDetector(this);
         new WindowSizeChangeNotifier(this, this);
         mBtnPlay = (Button) findViewById(R.id.btn_play);
@@ -163,7 +171,6 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
         mRealPlaySv=(RelativeLayout)findViewById(R.id.player_layout);
         mRealPlayPtzDirectionIv = (ImageView) findViewById(R.id.realplay_ptz_direction_iv);
         mPtzControlLy = (LinearLayout) findViewById(R.id.ptz_control_ly);
-
         ImageButton ptzTopBtn = (ImageButton) findViewById(R.id.ptz_top_btn);
         ptzTopBtn.setOnTouchListener(mOnTouchListener);
         ImageButton ptzBottomBtn = (ImageButton) findViewById(R.id.ptz_bottom_btn);
@@ -173,6 +180,12 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
         ImageButton ptzRightBtn = (ImageButton)findViewById(R.id.ptz_right_btn);
         ptzRightBtn.setOnTouchListener(mOnTouchListener);
         ImageButton ptzFlipBtn = (ImageButton) findViewById(R.id.ptz_flip_btn);
+
+
+        ptzzominBtn = (ImageButton)findViewById(R.id.btn_zoomin);
+        ptzzomoutBtn = (ImageButton)findViewById(R.id.btn_zoomout);
+        ptzzominBtn.setOnTouchListener(mOnTouchListener);
+        ptzzomoutBtn.setOnTouchListener(mOnTouchListener);
 //        ptzFlipBtn.setOnClickListener(mOnPopWndClickListener);
         //获取EZUIPlayer实例
         mEZUIPlayer = (EZUIPlayer) findViewById(R.id.player_ui);
@@ -189,9 +202,8 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
         mBtnRight.setOnTouchListener(this);
         mBtndown.setOnTouchListener(this);
         mBtnup.setOnTouchListener(this);
+
         mBtnPlay.setText(R.string.string_stop_play);
-        preparePlay();
-        setSurfaceSize();
     }
 
     private void setPtzDirectionIv(int command) {
@@ -321,6 +333,16 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
                             setPtzDirectionIv(RealPlayStatus.PTZ_RIGHT);
                             ptzOption(EZConstants.EZPTZCommand.EZPTZCommandRight, EZConstants.EZPTZAction.EZPTZActionSTART);
                             break;
+
+                        case R.id.btn_zoomin:
+                            ptzzominBtn.setBackgroundResource(R.drawable.fangda_sel);
+                            ptzOption(EZConstants.EZPTZCommand.EZPTZCommandZoomIn, EZConstants.EZPTZAction.EZPTZActionSTART);
+                            break;
+
+                        case R.id.btn_zoomout:
+                            ptzzomoutBtn.setBackgroundResource(R.drawable.sxiao_sel);
+                            ptzOption(EZConstants.EZPTZCommand.EZPTZCommandZoomOut, EZConstants.EZPTZAction.EZPTZActionSTART);
+                            break;
                         default:
                             break;
                     }
@@ -332,6 +354,7 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
 //                            mTalkRingView.setVisibility(View.GONE);
                             break;
                         case R.id.ptz_top_btn:
+                            Toast.makeText(PlayActivity.this, "21", Toast.LENGTH_SHORT).show();
                             mRealPlayPtzDirectionIv.setVisibility(View.GONE);
                             mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
                             ptzOption(EZConstants.EZPTZCommand.EZPTZCommandUp, EZConstants.EZPTZAction.EZPTZActionSTOP);
@@ -350,6 +373,18 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
                             mRealPlayPtzDirectionIv.setVisibility(View.GONE);
                             mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
                             ptzOption(EZConstants.EZPTZCommand.EZPTZCommandRight, EZConstants.EZPTZAction.EZPTZActionSTOP);
+                            break;
+
+                        case R.id.btn_zoomin:
+                            ptzzominBtn.setBackgroundResource(R.drawable.fangda);
+
+                            ptzOption(EZConstants.EZPTZCommand.EZPTZCommandZoomIn, EZConstants.EZPTZAction.EZPTZActionSTOP);
+                            break;
+
+                        case R.id.btn_zoomout:
+                            ptzzomoutBtn.setBackgroundResource(R.drawable.sxiao);
+
+                            ptzOption(EZConstants.EZPTZCommand.EZPTZCommandZoomOut, EZConstants.EZPTZAction.EZPTZActionSTOP);
                             break;
                         default:
                             break;
@@ -574,11 +609,11 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
 
             if(v== mBtnup){
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandUp, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandUp, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
 
                 }
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandUp, EZConstants.EZPTZAction.EZPTZActionSTOP, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandUp, EZConstants.EZPTZAction.EZPTZActionSTOP, 1);
 
                 }
             }
@@ -586,29 +621,29 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
 
             if(v== mBtndown){
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandDown, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandDown, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
 
                 }
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandDown, EZConstants.EZPTZAction.EZPTZActionSTOP, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandDown, EZConstants.EZPTZAction.EZPTZActionSTOP, 1);
 
                 }
             }
 
             if(v== mBtnLeft){
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandLeft, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandLeft, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
 
                 }
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandLeft, EZConstants.EZPTZAction.EZPTZActionSTOP, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandLeft, EZConstants.EZPTZAction.EZPTZActionSTOP, 1);
 
                 }
             }
 
             if(v== mBtnRight){
                 if(event.getAction() == MotionEvent.ACTION_UP){
-                    MjlApplication.getOpenSDK().controlPTZ("C61656416",1, EZConstants.EZPTZCommand.EZPTZCommandRight, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
+                    MjlApplication.getOpenSDK().controlPTZ(mDeviceSerial,mCameraNo, EZConstants.EZPTZCommand.EZPTZCommandRight, EZConstants.EZPTZAction.EZPTZActionSTART, 1);
 
                 }
                 if(event.getAction() == MotionEvent.ACTION_DOWN){

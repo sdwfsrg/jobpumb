@@ -6,9 +6,8 @@
     android:fadingEdge="none"
     android:scrollbars="none"
     android:paddingBottom="44dp" >
-	<RelativeLayout 
-	    android:id="@+id/realplay_operate_ly2"
-    	android:layout_width="wrap_content"
+	<RelativeLayout
+        android:layout_width="wrap_content"
     	android:layout_height="match_parent"
     	android:gravity="center"
 	    android:layout_gravity="left"
@@ -71,8 +70,7 @@
 	        android:layout_marginBottom="15dp"
 		    android:orientation="vertical" >			    	
 			<RelativeLayout
-				    android:id="@+id/realplay_ssl_btn_rl2"
-				    android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:orientation="vertical" >	            		        
 			   <Button
@@ -86,16 +84,14 @@
 			       android:onClick="onClick" />	
 			    
 	            <ProgressBar
-	                android:id="@+id/realplay_ssl_progress2"
-	                android:indeterminateDrawable="@drawable/common_loading_indeterminate"
+                    android:indeterminateDrawable="@drawable/common_loading_indeterminate"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_centerInParent="true"
 	                android:visibility="gone"/>      
 	        </RelativeLayout>   
 		   <TextView
-		       android:id="@+id/realplay_ssl_tv2"
-		       android:layout_width="wrap_content"
+               android:layout_width="wrap_content"
 		       android:layout_height="wrap_content"
 			   android:layout_marginTop="7dp"
 			   android:text="@string/close_source_localization"
@@ -104,9 +100,8 @@
 		       android:textSize="@dimen/realplay_text_size" />		    
 		</LinearLayout>		
 		
-		<LinearLayout 
-		    android:id="@+id/realplay_privacy_btn_ly2"
-		    android:layout_width="wrap_content"
+		<LinearLayout
+            android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_marginLeft="30dp"
 		    android:layout_marginTop="15dp"
@@ -119,8 +114,7 @@
 		        android:background="@drawable/play_privacy_selector"
 		        android:onClick="onClick" />
 		   <TextView
-		       android:id="@+id/realplay_privacy_tv2"
-		       android:layout_width="wrap_content"
+               android:layout_width="wrap_content"
 		       android:layout_height="wrap_content"
 			   android:layout_marginTop="7dp"
 			   android:text="@string/close_camera_lens"

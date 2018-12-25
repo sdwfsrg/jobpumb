@@ -10,6 +10,7 @@ import com.wfwlf.mark.pumb.bean.Site;
 import com.wfwlf.mark.pumb.bean.SiteInfo;
 import com.wfwlf.mark.pumb.bean.Token;
 import com.wfwlf.mark.pumb.bean.WarnInfo;
+import com.wfwlf.mark.pumb.bean.WaterChange;
 import com.wfwlf.mark.pumb.volley.MyErrorListener;
 import com.wfwlf.mark.pumb.volley.MyReponseListener;
 import com.wfwlf.mark.pumb.volley.VolleyRequest;
@@ -37,7 +38,7 @@ public class NetValues extends VolleyRequest {
 
 
     private final static String ROOT_PATH = "http://106.13.47.98:2001/psom/";
-
+//private final static String ROOT_PATH = "http://10.28.110.134:9091/psom/";
     private final static String CAMERA_API_URL = ROOT_PATH + "JobCameraController/";
     private final static String USER_URL = ROOT_PATH + "app/";
     private final static String SITE_URL = ROOT_PATH + "JobPumpController/";
@@ -46,7 +47,7 @@ public class NetValues extends VolleyRequest {
     private final static String CHART_URL = ROOT_PATH + "JobPumpDataController/";
     private final static String CHART_URL2 = ROOT_PATH + "JobDataProcessController/";
     private final static String WARN_URL = ROOT_PATH + "JobWarnInfoController/";
-
+    private final static String CHART_URL3 = ROOT_PATH + "web/common/JobSpinnerController/queryPumpWaterLevelList.do";
     public void get_site_list( MyReponseListener myReponseListener, MyErrorListener errorListener) {
 
         VolleyGet(SITE_URL+"queryPumpCombox.do", null, Site.class,myReponseListener,errorListener);
@@ -98,6 +99,20 @@ public class NetValues extends VolleyRequest {
 
     public void get_access_token(MyReponseListener myReponseListener, MyErrorListener errorListener){
         VolleyGet(CAMERA_API_URL+"accesstoken.do", null, Token.class,myReponseListener,errorListener);
+    }
+
+    /**
+     * 水位变化曲线
+     * @param pumpId
+     * @param type
+     * @param myReponseListener
+     * @param errorListener
+     */
+    public void get_wvchange_list(String pumpId ,String type,MyReponseListener myReponseListener, MyErrorListener errorListener){
+        Map<String, Object> map = new HashMap<>();
+        map.put("pumpId", pumpId);
+        map.put("timeType", type);
+        VolleyGet(CHART_URL3, map, WaterChange.class,myReponseListener,errorListener);
     }
 }
 

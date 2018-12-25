@@ -9,10 +9,12 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.bumptech.glide.Glide;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -89,6 +91,26 @@ public class PumpDetailActivity extends BaseActivity implements
     SmartRefreshLayout refreshLayout;
     @BindView(R.id.tv_cur_v)
     TextView tvCurV;
+    @BindView(R.id.iv_1)
+    ImageView iv1;
+    @BindView(R.id.iv_2)
+    ImageView iv2;
+    @BindView(R.id.iv_3)
+    ImageView iv3;
+    @BindView(R.id.iv_4)
+    ImageView iv4;
+    @BindView(R.id.ll_pump3)
+    LinearLayout llPump3;
+    @BindView(R.id.ll_pump4)
+    LinearLayout llPump4;
+    @BindView(R.id.tv_pump1)
+    TextView tvPump1;
+    @BindView(R.id.tv_pump2)
+    TextView tvPump2;
+    @BindView(R.id.tv_pump3)
+    TextView tvPump3;
+    @BindView(R.id.tv_pump4)
+    TextView tvPump4;
     private LineChartManager lineChartManager2;
     DeviceAdapter deviceAdapter;
     NetValues netValues;
@@ -97,6 +119,7 @@ public class PumpDetailActivity extends BaseActivity implements
     YAxis yAxis;
     XAxis xAxis;
     final ArrayList<Entry> values = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,6 +141,12 @@ public class PumpDetailActivity extends BaseActivity implements
         netValues = NetValues.getInstance(this);
         deviceAdapter = new DeviceAdapter(this);
         lvNap.setAdapter(deviceAdapter);
+        chart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtils.startActivity(PumpDetailActivity.this, ChartDetailActivity.class, pumpID);
+            }
+        });
         CommonUtils.requestViewFoucus(rlNotify);
         {   // // Chart Style // //
             lineChartManager2 = new LineChartManager(chart2);
@@ -128,7 +157,7 @@ public class PumpDetailActivity extends BaseActivity implements
             chart.getDescription().setEnabled(false);
             chart2.getDescription().setEnabled(true);
             // enable touch gestures
-            chart.setTouchEnabled(false
+            chart.setTouchEnabled(true
             );
             chart2.setTouchEnabled(true);
             // set listeners
@@ -280,7 +309,7 @@ public class PumpDetailActivity extends BaseActivity implements
                 if (chartdatas.size() > 0) {
                     deviceAdapter.setControtype(chartdatas.get(0).getControlType());
                     tvCurLev.setText(chartdatas.get(0).getWaterLevel() + " m");
-                    tvCurQul.setText(chartdatas.get(0).getWaterFlow() + " m³/H");
+                    tvCurQul.setText(chartdatas.get(0).getWaterFlow() + " m³/h");
                     yAxis.setAxisMaximum(getMaxWaterLevel(chartdatas));
                     yAxis.setAxisMinimum(getMinWaterLevel(chartdatas));
                     setChartData(chartdatas);
@@ -297,7 +326,7 @@ public class PumpDetailActivity extends BaseActivity implements
     }
 
     private void setChartData(List<SiteInfo.DataBean> chartdatas) {
-
+        values.clear();
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -320,9 +349,9 @@ public class PumpDetailActivity extends BaseActivity implements
 //            set1.setValues(values);
 
 //        } else {
-        // create a dataset and give it a type
-        set1 = new LineDataSet(values, "水位");
-
+        // create a dataset a nd give it a type
+        set1 = new LineDataSet(values, null);
+        set1.setLabel(null);
         set1.setDrawIcons(false);
 //            set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         // draw dashed line
@@ -340,8 +369,8 @@ public class PumpDetailActivity extends BaseActivity implements
         set1.setCircleColor(Color.GREEN);
 
         // line thickness and point size
-//            set1.setLineWidth(1f);
-//            set1.setCircleRadius(3f);
+//      set1.setLineWidth(1f);
+//      set1.setCircleRadius(3f);
 
         // draw points as solid circles
         set1.setDrawCircleHole(true);
@@ -375,8 +404,8 @@ public class PumpDetailActivity extends BaseActivity implements
         }
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1); // add the data sets
-
+        dataSets.add(set1);
+        // add the data sets
         // create a data object with the data sets
         LineData data = new LineData(dataSets);
         // set data
@@ -422,7 +451,7 @@ public class PumpDetailActivity extends BaseActivity implements
             @Override
             public void onResponse(BaseVO arg0) {
                 Device device = (Device) arg0;
-                deviceAdapter.setMdata(device.getData());
+                showstatus(device);
             }
         }, new MyErrorListener() {
             @Override
@@ -430,6 +459,44 @@ public class PumpDetailActivity extends BaseActivity implements
                 super.onErrorResponse(error);
             }
         });
+    }
+
+    private void showstatus(Device device) {
+        tvPump1.setText(device.getData().get(0).getDeviceName());
+        if(device.getData().get(0).getMotorStatus().equals("0")){
+            Glide.with(getApplicationContext()).load(R.drawable.stop).into(iv1);
+        }else {
+            Glide.with(getApplicationContext()).load(R.drawable.dongtai).into(iv1);
+        }
+        tvPump2.setText(device.getData().get(1).getDeviceName());
+        if(device.getData().get(1).getMotorStatus().equals("0")){
+            Glide.with(getApplicationContext()).load(R.drawable.stop).into(iv2);
+        }else {
+            Glide.with(getApplicationContext()).load(R.drawable.dongtai).into(iv2);
+        }
+        if (device.getData().size() > 2 && device.getData().size() > 0) {
+            tvPump3.setText(device.getData().get(2).getDeviceName());
+            if(device.getData().get(2).getMotorStatus().equals("0")){
+                Glide.with(getApplicationContext()).load(R.drawable.stop).into(iv3);
+            }else {
+                Glide.with(getApplicationContext()).load(R.drawable.dongtai).into(iv3);
+            }
+        }
+        if (device.getData().size() == 3 ) {
+            llPump4.setVisibility(View.GONE);
+        }
+        if (device.getData().size() < 3 && device.getData().size() > 0) {
+            llPump4.setVisibility(View.GONE);
+            llPump3.setVisibility(View.GONE);
+        }
+        if (device.getData().size() >3  && device.getData().size() > 0) {
+            tvPump4.setText(device.getData().get(3).getDeviceName());
+            if(device.getData().get(3).getMotorStatus().equals("0")){
+                Glide.with(getApplicationContext()).load(R.drawable.stop).into(iv4);
+            }else {
+                Glide.with(getApplicationContext()).load(R.drawable.dongtai).into(iv4);
+            }
+        }
     }
 
     private void setLineChartData() {
@@ -440,7 +507,7 @@ public class PumpDetailActivity extends BaseActivity implements
         }
         ArrayList<String> Values = new ArrayList<>();
         for (int i = 0; i < chartdatas.size(); i++) {
-            Values.add(chartdatas.get(chartdatas.size()-1-i).getDataTime().substring(10, 16));
+            Values.add(chartdatas.get(chartdatas.size() - 1 - i).getDataTime().substring(10, 16));
         }
         //设置Y轴数据
         List<List<Float>> yValues = new ArrayList<>();
@@ -460,9 +527,9 @@ public class PumpDetailActivity extends BaseActivity implements
         }
         //颜色集合
         List<Integer> colors = new ArrayList<>();
-        colors.add(Color.RED);
-        colors.add(Color.GREEN);
-        colors.add(Color.CYAN);
+        colors.add(Color.parseColor("#ff5230"));
+        colors.add(Color.parseColor("#00bb6e"));
+        colors.add(Color.parseColor("#ffa200"));
         //线的名字集合
         List<String> names = new ArrayList<>();
         names.add("U ");
@@ -484,7 +551,7 @@ public class PumpDetailActivity extends BaseActivity implements
     @Override
     public void onValueSelected(Entry e, Highlight h) {
         e.getX();
-        tvCurV.setText("  U:"+chartdatas.get(chartdatas.size()-1-(int)e.getX()).getVoltageU()+"  V:"+chartdatas.get(chartdatas.size()-1-(int)e.getX()).getVoltageV()+"  W:"+chartdatas.get(chartdatas.size()-1-(int)e.getX()).getVoltageW());
+        tvCurV.setText("  U:" + chartdatas.get(chartdatas.size() - 1 - (int) e.getX()).getVoltageU() + "  V:" + chartdatas.get(chartdatas.size() - 1 - (int) e.getX()).getVoltageV() + "  W:" + chartdatas.get(chartdatas.size() - 1 - (int) e.getX()).getVoltageW());
         Log.i("Entry selected", e.toString());
         Log.i("LOW HIGH", "low: " + chart.getLowestVisibleX() + ", high: " + chart.getHighestVisibleX());
         Log.i("MIN MAX", "xMin: " + chart.getXChartMin() + ", xMax: " + chart.getXChartMax() + ", yMin: " + chart.getYChartMin() + ", yMax: " + chart.getYChartMax());

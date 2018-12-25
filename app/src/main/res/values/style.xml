@@ -16,12 +16,7 @@
         <item name="textSize">15sp</item>
         <item name="android:text"/>
     </style>
-    <style name="TitleBar_Light">
-        <item name="textColor">@color/common_text</item>
-        <item name="background">@drawable/common_title</item>
-    </style>
-    <style name="TitleBar_Light_Web" parent="TitleBar_Light">
-    </style>
+
     <style name="TitleBar_Dark">
         <item name="textColor">@android:color/white</item>
         <item name="background">@color/dark_bg_70p</item>

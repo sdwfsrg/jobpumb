@@ -8,8 +8,7 @@
     android:scrollbars="none" >
 
 	<LinearLayout
-	    android:id="@+id/realplay_operate_ly"
-	    android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_gravity="center_vertical|center_horizontal"
 	    android:orientation="vertical" >
@@ -78,8 +77,7 @@
 		    android:visibility="gone"
 		    android:orientation="vertical" >		
 			<RelativeLayout
-				    android:id="@+id/realplay_ssl_btn_rl"
-				    android:layout_width="wrap_content"
+                android:layout_width="wrap_content"
 				    android:layout_height="wrap_content"
 				    android:orientation="vertical" >	            		        
 			   <Button
@@ -93,16 +91,14 @@
 			       android:onClick="onClick" />	
 			    
 	            <ProgressBar
-	                android:id="@+id/realplay_ssl_progress"
-	                android:indeterminateDrawable="@drawable/common_loading_indeterminate"
+                    android:indeterminateDrawable="@drawable/common_loading_indeterminate"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_centerInParent="true"
 	                android:visibility="gone"/>      
 	        </RelativeLayout>   
 		   <TextView
-		       android:id="@+id/realplay_ssl_tv"
-		       android:layout_width="wrap_content"
+               android:layout_width="wrap_content"
 		       android:layout_height="wrap_content"
 			   android:layout_marginTop="7dp"
 			   android:text="@string/close_source_localization"
@@ -110,9 +106,8 @@
 		       android:textColor="@color/common_sub_text"
 		       android:textSize="@dimen/realplay_text_size" />		    
 		</LinearLayout>		
-		<LinearLayout 
-		    android:id="@+id/realplay_privacy_btn_ly"
-		    android:layout_width="wrap_content"
+		<LinearLayout
+            android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:visibility="gone"
 		    android:orientation="vertical" >		
@@ -123,8 +118,7 @@
 		        android:background="@drawable/play_privacy_selector"
 		        android:onClick="onClick" />
 		   <TextView
-		       android:id="@+id/realplay_privacy_tv"
-		       android:layout_width="wrap_content"
+               android:layout_width="wrap_content"
 		       android:layout_height="wrap_content"
 			   android:layout_marginTop="7dp"
 			   android:text="@string/close_camera_lens"

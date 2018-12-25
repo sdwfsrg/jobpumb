@@ -26,7 +26,7 @@ import com.zhy.autolayout.AutoRelativeLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
 
 /**
  * Created by marksong on 2018/11/30.
@@ -91,7 +91,7 @@ public class VideoRecodeActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        IjkMediaPlayer.native_profileEnd();
+
     }
 
 

@@ -19,7 +19,6 @@
         android:onClick="onClick" />
 
     <View
-        android:id="@+id/sound_line"
         android:layout_width="1dp"
         android:layout_height="18dp"
         android:background="#404040" />
@@ -32,7 +31,6 @@
         android:background="@drawable/ezopen_vertical_preview_sound_selector"
         android:onClick="onClick" />
 	<View
-        android:id="@+id/quality_line"
         android:layout_width="1dp"
         android:layout_height="18dp"
         android:background="#404040" />
@@ -49,7 +47,6 @@
         android:textSize="@dimen/realplay_text_size" />
 
     <View
-        android:id="@+id/flow_line"
         android:layout_width="1dp"
         android:layout_height="18dp"
         android:background="#404040" />
@@ -65,7 +62,6 @@
         android:visibility="invisible" />
 
     <View
-        android:id="@+id/mirror_line"
         android:layout_width="1dp"
         android:layout_height="18dp"
         android:background="#404040" />

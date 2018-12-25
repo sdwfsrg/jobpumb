@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -65,12 +64,17 @@
 
         </activity>
 
-        <activity android:name=".ui.PumpDetailActivity" />
-        <activity android:name=".ui.NotifyActivity" />
-        <activity android:name=".ui.VideoRecodeActivity" />
-        <activity android:name=".ui.AccountActivity" />
-        <activity android:name=".ui.VideoActivity"
+        <activity android:name=".ui.PumpDetailActivity"
+            android:screenOrientation="portrait"
             />
+        <activity android:name=".ui.NotifyActivity" />
+        <activity android:name=".ui.VideoRecodeActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity android:name=".ui.AccountActivity"
+            android:screenOrientation="portrait"
+            />
+
         <activity
             android:name="com.videogo.main.EzvizWebViewActivity"
             android:screenOrientation="portrait"
@@ -79,7 +83,8 @@
             android:configChanges="orientation|keyboardHidden">
         </activity>
         <activity android:name=".ui.PlayActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             />
         <activity android:name=".ui.cameralist.EZCameraListActivity"
             android:screenOrientation="portrait"/>
@@ -87,6 +92,10 @@
         <activity android:name=".ui.EZRealPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.ChartDetailActivity"
+            android:screenOrientation="landscape"
+            />
+
         <receiver
             android:name=".manager.YSBroadcastReceiver"
             android:exported="false" >

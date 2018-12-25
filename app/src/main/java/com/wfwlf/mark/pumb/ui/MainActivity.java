@@ -26,6 +26,7 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.MapStatus;
+import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
@@ -34,6 +35,7 @@ import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.model.LatLngBounds;
 import com.wfwlf.mark.pumb.NetValues;
 import com.wfwlf.mark.pumb.R;
 import com.wfwlf.mark.pumb.adapter.MarkAdapter;
@@ -49,7 +51,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+
 
 /**
  *
@@ -124,25 +126,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
         initdata();
         //加载so文件
-        try {
-            IjkMediaPlayer.loadLibrariesOnce(null);
-            IjkMediaPlayer.native_profileBegin("libijkplayer.so");
-        } catch (Exception e) {
-           e.printStackTrace();
-        }
+
 
 
         mBaiduMap = mMapView.getMap();
         // 开启定位图层
-        mBaiduMap.setMyLocationEnabled(true);
-        // 定位初始化
-        mLocClient = new LocationClient(this);
-        mLocClient.registerLocationListener(myListener);
-        LocationClientOption option = new LocationClientOption();
-        option.setOpenGps(true); // 打开gps
-        option.setCoorType("bd09ll"); // 设置坐标类型
-        option.setScanSpan(1000);
-        mLocClient.setLocOption(option);
+//        mBaiduMap.setMyLocationEnabled(true);
+//        // 定位初始化
+//        mLocClient = new LocationClient(this);
+//        mLocClient.registerLocationListener(myListener);
+//        LocationClientOption option = new LocationClientOption();
+//        option.setOpenGps(true); // 打开gps
+//        option.setCoorType("bd09ll"); // 设置坐标类型
+//        option.setScanSpan(1000);
+//        mLocClient.setLocOption(option);
 
         mBaiduMap.setOnMarkerClickListener(new BaiduMap.OnMarkerClickListener() {
             @Override
@@ -154,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             }
         });
         List<Marker> markers = mBaiduMap.getMarkersInBounds(mBaiduMap.getMapStatus().bound);
-        mLocClient.start();
+//        mLocClient.start();
     }
 
     private void initdata() {
@@ -164,10 +161,12 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 Site site=(Site) arg0;
                 mdata=site.getData();
                 shopAdapter.setMdata(mdata);
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 for (Site.DataBean bean : mdata) {
                     String[] position=bean.getCoordinate().split(",");
                     double lng=Double.parseDouble(position[0]);
                     double lat=Double.parseDouble(position[1]);
+                    builder.include(new LatLng(lat,lng));
                     LatLng latLng = new LatLng(lat, lng);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("BEAN", bean);
@@ -179,6 +178,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     OverlayOptions options = new MarkerOptions().position(latLng).icon(descriptor).extraInfo(bundle).draggable(true);
                     Marker marker = (Marker) mBaiduMap.addOverlay(options);
                 }
+
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(builder.build());
+
+                mBaiduMap.setMapStatus(u);
+                LatLng llCentre = mBaiduMap.getMapStatus().target;
+                MapStatus.Builder builder1 = new MapStatus.Builder();
+                builder1.target(llCentre )//缩放中心点
+                        .zoom(14.5f);
+                mBaiduMap.animateMapStatus(MapStatusUpdateFactory
+                        .newMapStatus(builder1.build()));
+
+
             }
         }, new MyErrorListener() {
             @Override
@@ -304,7 +315,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     @Override
     protected void onDestroy() {
         // 退出时销毁定位
-        mLocClient.stop();
+//        mLocClient.stop();
         // 关闭定位图层
         mBaiduMap.setMyLocationEnabled(false);
         mMapView.onDestroy();

@@ -9,23 +9,19 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.dl7.player.media.IjkPlayerView;
 import com.videogo.constant.IntentConsts;
 import com.wfwlf.mark.pumb.R;
 import com.wfwlf.mark.pumb.bean.CameraInfo;
 import com.wfwlf.mark.pumb.ui.EZRealPlayActivity;
 import com.wfwlf.mark.pumb.ui.PlayActivity;
-import com.wfwlf.mark.pumb.ui.VideoActivity;
-import com.wfwlf.mark.pumb.util.CommonUtils;
-import com.wfwlf.mark.pumb.util.VideoPlayerIJK;
-import com.wfwlf.mark.pumb.util.VideoPlayerListener;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
+
 
 /**
  * Created by marksong on 2018/11/30.
