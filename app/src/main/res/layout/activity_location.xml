@@ -8,7 +8,7 @@
     <com.baidu.mapapi.map.MapView
         android:layout_below="@+id/header"
         android:id="@+id/bmapView"
-        android:layout_marginBottom="40dp"
+
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:clickable="true" />
@@ -39,10 +39,20 @@
             android:layout_marginTop="28px"
             android:textColor="@color/white"
             android:textSize="30px"
-            android:text="泵站检测" />
+            android:text="智慧水务" />
 
     </com.zhy.autolayout.AutoRelativeLayout>
+    <ImageView
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="20dp"
+        android:id="@+id/btn_go_list"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/neifdkf"
+        />
     <com.zhy.autolayout.AutoRelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_info"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"

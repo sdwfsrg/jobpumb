@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private String scid = "-1";
     MarkAdapter shopAdapter;
     List<Site.DataBean> mdata=new ArrayList<>();
+    float zoom=0;
     // 初始化全局 bitmap 信息，不用时及时 recycle
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -130,6 +131,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
 
         mBaiduMap = mMapView.getMap();
+        mMapView.showZoomControls(false);
         // 开启定位图层
 //        mBaiduMap.setMyLocationEnabled(true);
 //        // 定位初始化
@@ -182,6 +184,41 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(builder.build());
 
                 mBaiduMap.setMapStatus(u);
+                mBaiduMap.showMapPoi(false);
+                mBaiduMap.setTrafficEnabled(false);
+                mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+                    @Override
+                    public void onMapStatusChangeStart(MapStatus mapStatus) {
+
+                    }
+
+                    @Override
+                    public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
+
+                    }
+
+                    @Override
+                    public void onMapStatusChange(MapStatus mapStatus) {
+                        float zoom = mapStatus.zoom;
+
+                        if(Math.abs(MainActivity.this.zoom-zoom)>0.000001){
+
+                            if(zoom>14.5f){
+                                mBaiduMap.showMapPoi(true);
+                            }else {
+                                mBaiduMap.showMapPoi(false);
+                            }
+                            MainActivity.this.zoom =zoom;
+                            Log.d("zoom","缩放起了变化，现在缩放等级为"+zoom);
+                        }
+                    }
+
+                    @Override
+                    public void onMapStatusChangeFinish(MapStatus mapStatus) {
+
+                    }
+                });
+
                 LatLng llCentre = mBaiduMap.getMapStatus().target;
                 MapStatus.Builder builder1 = new MapStatus.Builder();
                 builder1.target(llCentre )//缩放中心点
@@ -222,13 +259,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
 
-    @OnClick({R.id.person_iv, R.id.more})
+    @OnClick({R.id.person_iv, R.id.btn_go_list})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.person_iv:
                 CommonUtils.startActivity(this, AccountActivity.class);
                 break;
-            case R.id.more:
+            case R.id.btn_go_list:
+                CommonUtils.startActivity(this, SitelistActivity.class);
                 break;
         }
     }
@@ -290,6 +328,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
+
+    private void setUserMapCenter(double lat,double lon) {
+        Log.v("pcw","setUserMapCenter : lat : "+ lat+" lon : " + lon);
+        LatLng cenpt = new LatLng(lat,lon);
+//定义地图状态
+        MapStatus mMapStatus = new MapStatus.Builder()
+                .target(cenpt)
+                .zoom(18)
+                .build();
+//定义MapStatusUpdate对象，以便描述地图状态将要发生的变化
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+//改变地图状态
+        mBaiduMap.setMapStatus(mMapStatusUpdate);
+    }
     @Override
     protected void onPause() {
         mMapView.onPause();

@@ -277,7 +277,17 @@ public class PumpDetailActivity extends BaseActivity implements
                 max = chartdata.get(i).getVoltageU();
             }
         }
-        max = max + 1f;
+        for (int i = 0; i < chartdata.size(); i++) {
+            if (max < chartdata.get(i).getVoltageV()) {
+                max = chartdata.get(i).getVoltageV();
+            }
+        }
+        for (int i = 0; i < chartdata.size(); i++) {
+            if (max < chartdata.get(i).getVoltageW()) {
+                max = chartdata.get(i).getVoltageW();
+            }
+        }
+        max = max + 2f;
         max = (int) Math.ceil((double) max);
         return max;
     }
@@ -292,7 +302,7 @@ public class PumpDetailActivity extends BaseActivity implements
                 min = chartdata.get(i).getVoltageV();
             }
         }
-        min = min - 1f;
+        min = min - 2f;
         min = (int) Math.floor((double) min);
         return min;
     }
@@ -539,7 +549,7 @@ public class PumpDetailActivity extends BaseActivity implements
         //显示多条曲线
 //        lineChart2.setBackgroundColor(Color.GRAY);//表格背景
         lineChartManager2.showLineChart(xValues, yValues, names, colors, Values);
-        lineChartManager2.setYAxis(getMaxVUL(chartdatas), getMinVUL(chartdatas), 4);
+        lineChartManager2.setYAxis(getMaxVUL(chartdatas), getMinVUL(chartdatas), 5);
         lineChartManager2.setDescription("");
     }
 

@@ -95,6 +95,8 @@
         <activity android:name=".ui.ChartDetailActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".ui.SitelistActivity" />
+        <activity android:name=".ui.WaterSiteDetailActivity" />
 
         <receiver
             android:name=".manager.YSBroadcastReceiver"

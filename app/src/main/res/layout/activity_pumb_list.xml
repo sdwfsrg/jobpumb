@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        >
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/return_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+
+            android:padding="15dp"
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/btn_back" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="28px"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="站点列表" />
+
+
+    </RelativeLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                >
+                <View
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="4dp"
+                    android:layout_height="20dp"
+                    android:background="@color/colorAccent"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/title_color"
+                    android:text="泵站列表"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+            <com.wfwlf.mark.pumb.ui.NoScrollListView
+                android:id="@+id/rl_pumb"
+                android:scrollbars="none"
+                android:divider="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.wfwlf.mark.pumb.ui.NoScrollListView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@color/white"
+                >
+                <View
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="4dp"
+                    android:layout_height="20dp"
+                    android:background="@color/colorAccent"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:textColor="@color/title_color"
+                    android:text="水站列表"
+                    android:layout_marginLeft="10dp"
+                    />
+            </LinearLayout>
+            <com.wfwlf.mark.pumb.ui.NoScrollListView
+                android:id="@+id/rl_watersite"
+                android:scrollbars="none"
+                android:divider="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></com.wfwlf.mark.pumb.ui.NoScrollListView>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

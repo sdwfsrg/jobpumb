@@ -354,7 +354,6 @@ public class PlayActivity extends Activity implements View.OnClickListener,View.
 //                            mTalkRingView.setVisibility(View.GONE);
                             break;
                         case R.id.ptz_top_btn:
-                            Toast.makeText(PlayActivity.this, "21", Toast.LENGTH_SHORT).show();
                             mRealPlayPtzDirectionIv.setVisibility(View.GONE);
                             mPtzControlLy.setBackgroundResource(R.drawable.ptz_bg);
                             ptzOption(EZConstants.EZPTZCommand.EZPTZCommandUp, EZConstants.EZPTZAction.EZPTZActionSTOP);

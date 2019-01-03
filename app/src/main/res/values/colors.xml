@@ -47,5 +47,6 @@
     <color name="source_detection_btn_color">#48a9fb</color>
 
     <color name="opensdk_cameralist_bg">#f0f0f1</color>
+    <color name="common_b">#a6b3bc</color>
 
 </resources>

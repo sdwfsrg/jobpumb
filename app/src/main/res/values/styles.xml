@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
     <style name="WelcomeStyle" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@drawable/start_page</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
