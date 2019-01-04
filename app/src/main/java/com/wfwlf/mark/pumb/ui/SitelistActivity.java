@@ -81,7 +81,18 @@ public class SitelistActivity extends BaseActivity {
                 Site site=(Site) arg0;
                 mdata=site.getData();
                 shopAdapter.setMdata(mdata);
-                shopAdapter1.setMdata(mdata);
+            }
+        }, new MyErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                super.onErrorResponse(error);
+            }
+        });
+        netValues.get_w_station_list(new MyReponseListener() {
+            @Override
+            public void onResponse(BaseVO arg0) {
+                Site site=(Site) arg0;
+                shopAdapter1.setMdata(site.getData());
             }
         }, new MyErrorListener() {
             @Override

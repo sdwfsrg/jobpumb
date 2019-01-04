@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -99,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float direction;
     LatLng northeast;
     LatLng southwest;
+    List<LatLng> latLngs;
     private Point mScreenCenterPoint;
     private int flag = 1;
     private String scid = "-1";
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         mCurrentMode = LocationMode.NORMAL;
         netValues = NetValues.getInstance(this);
         shopAdapter = new MarkAdapter(this);
-
+        latLngs = new ArrayList<>();
         lvPump.setAdapter(shopAdapter);
         lvPump.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -132,6 +134,42 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         mBaiduMap = mMapView.getMap();
         mMapView.showZoomControls(false);
+        mBaiduMap.showMapPoi(false);
+        mBaiduMap.setTrafficEnabled(false);
+        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus) {
+
+            }
+
+            @Override
+            public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
+
+            }
+
+            @Override
+            public void onMapStatusChange(MapStatus mapStatus) {
+                float zoom = mapStatus.zoom;
+
+                if(Math.abs(MainActivity.this.zoom-zoom)>0.000001){
+
+                    if(zoom>14.5f){
+                        mBaiduMap.showMapPoi(true);
+                    }else {
+                        mBaiduMap.showMapPoi(false);
+                    }
+                    MainActivity.this.zoom =zoom;
+                    Log.d("zoom","缩放起了变化，现在缩放等级为"+zoom);
+                }
+            }
+
+            @Override
+            public void onMapStatusChangeFinish(MapStatus mapStatus) {
+
+            }
+        });
+
+
         // 开启定位图层
 //        mBaiduMap.setMyLocationEnabled(true);
 //        // 定位初始化
@@ -147,7 +185,16 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public boolean onMarkerClick(Marker marker) {
                 Site.DataBean listBean = (Site.DataBean) marker.getExtraInfo().getSerializable("BEAN");
-                CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,listBean.getCode());
+                if(listBean.getType()==1){
+                    CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,listBean.getCode());
+                }else if(listBean.getType()==2){
+                    if(listBean.getQty()>1){
+                        Toast.makeText(MainActivity.this, ""+listBean.getCode()+listBean.getNickName(), Toast.LENGTH_SHORT).show();
+                    }else {
+                        CommonUtils.startActivity(MainActivity.this, WaterSiteDetailActivity.class,listBean.getCode());
+                    }
+                }
+
 
                 return false;
             }
@@ -171,6 +218,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     builder.include(new LatLng(lat,lng));
                     LatLng latLng = new LatLng(lat, lng);
                     Bundle bundle = new Bundle();
+                    latLngs.add(latLng);
                     bundle.putSerializable("BEAN", bean);
                     View view = View.inflate(getApplicationContext(), R.layout.item_bean, null);
                     TextView tView = (TextView)view.findViewById(R.id.tv_name);
@@ -180,51 +228,67 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     OverlayOptions options = new MarkerOptions().position(latLng).icon(descriptor).extraInfo(bundle).draggable(true);
                     Marker marker = (Marker) mBaiduMap.addOverlay(options);
                 }
-
-                MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(builder.build());
-
-                mBaiduMap.setMapStatus(u);
-                mBaiduMap.showMapPoi(false);
-                mBaiduMap.setTrafficEnabled(false);
-                mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+                mBaiduMap.setOnMapLoadedCallback(new BaiduMap.OnMapLoadedCallback() {
                     @Override
-                    public void onMapStatusChangeStart(MapStatus mapStatus) {
-
-                    }
-
-                    @Override
-                    public void onMapStatusChangeStart(MapStatus mapStatus, int i) {
-
-                    }
-
-                    @Override
-                    public void onMapStatusChange(MapStatus mapStatus) {
-                        float zoom = mapStatus.zoom;
-
-                        if(Math.abs(MainActivity.this.zoom-zoom)>0.000001){
-
-                            if(zoom>14.5f){
-                                mBaiduMap.showMapPoi(true);
-                            }else {
-                                mBaiduMap.showMapPoi(false);
-                            }
-                            MainActivity.this.zoom =zoom;
-                            Log.d("zoom","缩放起了变化，现在缩放等级为"+zoom);
+                    public void onMapLoaded() {
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        for(LatLng latLng : latLngs){
+                            builder = builder.include(latLng);
                         }
-                    }
-
-                    @Override
-                    public void onMapStatusChangeFinish(MapStatus mapStatus) {
-
+                        LatLngBounds latlngBounds = builder.build();
+                        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(latlngBounds,mMapView.getWidth(),mMapView.getHeight());
+                        mBaiduMap.animateMapStatus(u);
                     }
                 });
 
-                LatLng llCentre = mBaiduMap.getMapStatus().target;
-                MapStatus.Builder builder1 = new MapStatus.Builder();
-                builder1.target(llCentre )//缩放中心点
-                        .zoom(14.5f);
-                mBaiduMap.animateMapStatus(MapStatusUpdateFactory
-                        .newMapStatus(builder1.build()));
+
+            }
+        }, new MyErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                super.onErrorResponse(error);
+            }
+        });
+
+
+        netValues.get_w_station_map_list(new MyReponseListener() {
+            @Override
+            public void onResponse(BaseVO arg0) {
+                Site site=(Site) arg0;
+                mdata=site.getData();
+                shopAdapter.setMdata(mdata);
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                for (Site.DataBean bean : mdata) {
+                    String[] position=bean.getCoordinate().split(",");
+                    double lng=Double.parseDouble(position[0]);
+                    double lat=Double.parseDouble(position[1]);
+                    builder.include(new LatLng(lat,lng));
+                    LatLng latLng = new LatLng(lat, lng);
+                    Bundle bundle = new Bundle();
+                    latLngs.add(latLng);
+                    bundle.putSerializable("BEAN", bean);
+                    View view = View.inflate(getApplicationContext(), R.layout.item_bean, null);
+                    TextView tView = (TextView)view.findViewById(R.id.tv_name);
+                    ImageView imageView = (ImageView)view.findViewById(R.id.iv_position);
+                    imageView.setImageResource(R.mipmap.w_position);
+                    tView.setText(bean.getName()+ "");
+                    //将View转化为Bitmap
+                    BitmapDescriptor descriptor = BitmapDescriptorFactory.fromView(view);
+                    OverlayOptions options = new MarkerOptions().position(latLng).icon(descriptor).extraInfo(bundle).draggable(true);
+                    Marker marker = (Marker) mBaiduMap.addOverlay(options);
+                }
+
+//                MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(builder.build());
+//
+//                mBaiduMap.setMapStatus(u);
+//
+//
+//                LatLng llCentre = mBaiduMap.getMapStatus().target;
+//                MapStatus.Builder builder1 = new MapStatus.Builder();
+//                builder1.target(llCentre )//缩放中心点
+//                        .zoom(14.5f);
+//                mBaiduMap.animateMapStatus(MapStatusUpdateFactory
+//                        .newMapStatus(builder1.build()));
 
 
             }

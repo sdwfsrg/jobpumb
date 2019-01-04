@@ -91,25 +91,27 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="水温："
+                            android:text="氨氮："
                             android:textSize="14sp"
                             android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_andan"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:textColor="@color/common_b"
                             android:textSize="14sp"
-                            android:text="32℃"
+                            android:text=""
                             />
                         <TextView
+                            android:id="@+id/tv_status_andan"
                             android:layout_marginRight="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="正常"
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/common_f"
                             />
@@ -123,25 +125,27 @@
                             android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="浊度："
+                            android:text="二氧化氯："
                             android:textSize="14sp"
                             android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_cloo"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:textColor="@color/common_b"
                             android:textSize="14sp"
-                            android:text="32 ftu"
+                            android:text=""
                             />
                         <TextView
+                            android:id="@+id/tv_status_cloo"
                             android:layout_marginRight="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="正常"
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/common_f"
                             />
@@ -161,25 +165,101 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="导电率："
+                            android:text="COD："
                             android:textSize="14sp"
                             android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_cod"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:textColor="@color/common_b"
                             android:textSize="14sp"
-                            android:text="32 s/cm"
+                            android:text=""
                             />
                         <TextView
+                            android:id="@+id/tv_status_cod"
                             android:layout_marginRight="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="正常"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@color/common_f"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:text="CODmn："
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/tv_codm"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/common_b"
+                            android:textSize="14sp"
+                            android:text=""
+                            />
+                        <TextView
+                            android:id="@+id/tv_status_codm"
+                            android:layout_marginRight="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@color/common_f"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="电导率："
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            />
+                        <TextView
+                            android:id="@+id/tv_ddl"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/common_b"
+                            android:textSize="14sp"
+                            android:text=""
+                            />
+                        <TextView
+                            android:id="@+id/tv_status_ddl"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/common_f"
                             />
@@ -193,25 +273,175 @@
                             android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="余氯："
+                            android:text="溶解氧："
                             android:textSize="14sp"
                             android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_rjo"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:textColor="@color/common_b"
                             android:textSize="14sp"
-                            android:text="32mg/L"
+                            android:text=""
                             />
                         <TextView
+                            android:id="@+id/tv_status_rjy"
                             android:layout_marginRight="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="正常"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@color/common_f"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="pH值："
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            />
+                        <TextView
+                            android:id="@+id/tv_ph"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/common_b"
+                            android:textSize="14sp"
+                            android:text=""
+                            />
+                        <TextView
+                            android:id="@+id/tv_status_ph"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@color/common_f"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="总氮："
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            />
+                        <TextView
+                            android:id="@+id/tv_zd"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/common_b"
+                            android:textSize="14sp"
+                            android:text=""
+                            />
+                        <TextView
+                            android:id="@+id/tv_status_zd"
+                            android:layout_marginRight="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@color/common_f"
+                            />
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginLeft="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="总磷："
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            />
+                        <TextView
+                            android:id="@+id/tv_zl"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/common_b"
+                            android:textSize="14sp"
+                            android:text=""
+                            />
+                        <TextView
+                            android:id="@+id/tv_status_zl"
+                            android:layout_marginRight="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text=""
+                            android:textSize="14sp"
+                            android:textColor="@color/common_f"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="浊度："
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            />
+                        <TextView
+                            android:id="@+id/tv_zhd"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/common_b"
+                            android:textSize="14sp"
+                            android:text=""
+                            />
+                        <TextView
+                            android:id="@+id/tv_status_zhd"
+                            android:layout_marginRight="20dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/common_f"
                             />
@@ -232,25 +462,27 @@
                             android:layout_marginLeft="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ORP："
+                            android:text="污泥量："
                             android:textSize="14sp"
                             android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_wnl"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:textColor="@color/common_b"
                             android:textSize="14sp"
-                            android:text="32mv"
+                            android:text=""
                             />
                         <TextView
+                            android:id="@+id/tv_status_wnl"
                             android:layout_marginRight="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="正常"
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/common_f"
                             />
@@ -264,25 +496,27 @@
                             android:layout_marginLeft="10dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="总氯："
+                            android:text="水温："
                             android:textSize="14sp"
                             android:textColor="@color/black"
                             />
                         <TextView
+                            android:id="@+id/tv_sw"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:gravity="center"
                             android:layout_height="wrap_content"
                             android:textColor="@color/common_b"
                             android:textSize="14sp"
-                            android:text="32mg/L"
+                            android:text=""
                             />
                         <TextView
+                            android:id="@+id/tv_status_sw"
                             android:layout_marginRight="20dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right"
-                            android:text="正常"
+                            android:text=""
                             android:textSize="14sp"
                             android:textColor="@color/common_f"
                             />
@@ -327,7 +561,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="近1周"
+                android:text="近1天"
                 android:padding="10dp"
                 android:textSize="12sp"
                 android:textColor="@color/black"
@@ -339,7 +573,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="近1月"
+                    android:text="近1周"
                     android:padding="10dp"
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -351,7 +585,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="近1季"
+                    android:text="近1月"
                     android:padding="10dp"
                     android:textSize="12sp"
                     android:textColor="@color/black"
@@ -375,20 +609,21 @@
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
-                android:text="每日水温变化(℃)"
+                android:text="每小时水温变化(℃)"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart1"
                 android:layout_weight="1"
                 android:layout_margin="10dp"
+                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="180dp"/>
             <TextView
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
-                android:text="每日浊度变化（tu）"
+                android:text="每小时浊度变化（tu）"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.LineChart
@@ -396,12 +631,12 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="180dp"/>
             <TextView
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
-                android:text="每日导电率变化（S/cm）"
+                android:text="每小时导电率变化（S/cm）"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.LineChart
@@ -409,12 +644,12 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="180dp"/>
             <TextView
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
-                android:text="每日余氯变化（mg/L)）"
+                android:text="每小时余氯变化（mg/L)）"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.LineChart
@@ -422,12 +657,12 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="180dp"/>
             <TextView
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
-                android:text="每日ORP变化（mv）"
+                android:text="每小时ORP变化（mv）"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.LineChart
@@ -435,12 +670,12 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="180dp"/>
             <TextView
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_marginLeft="15dp"
-                android:text="每日总氯变化（mg/L)）"
+                android:text="每小时总氯变化（mg/L)）"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <com.github.mikephil.charting.charts.LineChart
@@ -448,7 +683,7 @@
                 android:layout_weight="1"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"/>
+                android:layout_height="180dp"/>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 

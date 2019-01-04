@@ -75,6 +75,33 @@ public class Site extends BaseVO {
         private String code;
         private String coordinate;
         private String name;
+        private String nickName;
+        private int type;
+        private int qty=0;
+
+        public int getQty() {
+            return qty;
+        }
+
+        public void setQty(int qty) {
+            this.qty = qty;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public String getNickName() {
+            return nickName;
+        }
+
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
 
         public String getCode() {
             return code;

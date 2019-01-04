@@ -11,6 +11,7 @@ import com.wfwlf.mark.pumb.bean.SiteInfo;
 import com.wfwlf.mark.pumb.bean.Token;
 import com.wfwlf.mark.pumb.bean.WarnInfo;
 import com.wfwlf.mark.pumb.bean.WaterChange;
+import com.wfwlf.mark.pumb.bean.WstationBean;
 import com.wfwlf.mark.pumb.volley.MyErrorListener;
 import com.wfwlf.mark.pumb.volley.MyReponseListener;
 import com.wfwlf.mark.pumb.volley.VolleyRequest;
@@ -38,6 +39,9 @@ public class NetValues extends VolleyRequest {
 
 
     private final static String ROOT_PATH = "http://106.13.47.98:2001/psom/";
+
+    private final static String ROOT_PATH_W = "http://10.28.110.134:9091/szsw/";
+
 //private final static String ROOT_PATH = "http://10.28.110.134:9091/psom/";
     private final static String CAMERA_API_URL = ROOT_PATH + "JobCameraController/";
     private final static String USER_URL = ROOT_PATH + "app/";
@@ -48,6 +52,8 @@ public class NetValues extends VolleyRequest {
     private final static String CHART_URL2 = ROOT_PATH + "JobDataProcessController/";
     private final static String WARN_URL = ROOT_PATH + "JobWarnInfoController/";
     private final static String CHART_URL3 = ROOT_PATH + "web/common/JobSpinnerController/queryPumpWaterLevelList.do";
+
+    private final static String WATER_URL = ROOT_PATH_W + "station/JobWaterStationController/";
     public void get_site_list( MyReponseListener myReponseListener, MyErrorListener errorListener) {
 
         VolleyGet(SITE_URL+"queryPumpCombox.do", null, Site.class,myReponseListener,errorListener);
@@ -113,6 +119,46 @@ public class NetValues extends VolleyRequest {
         map.put("pumpId", pumpId);
         map.put("timeType", type);
         VolleyGet(CHART_URL3, map, WaterChange.class,myReponseListener,errorListener);
+    }
+
+
+    /**
+     * 获取水站列表
+     * @param myReponseListener
+     * @param errorListener
+     */
+    public void  get_w_station_list( MyReponseListener myReponseListener, MyErrorListener errorListener){
+        VolleyGet(WATER_URL+"waterStationList.do", null, Site.class,myReponseListener,errorListener);
+    }
+
+    public void  get_w_station_map_list( MyReponseListener myReponseListener, MyErrorListener errorListener){
+        VolleyGet(WATER_URL+"waterStationMapList.do", null, Site.class,myReponseListener,errorListener);
+    }
+
+    /**
+     * 最新水站数据
+     * @param stationId
+     * @param myReponseListener
+     * @param errorListener
+     */
+    public  void get_w_station_info_current(String stationId ,MyReponseListener myReponseListener, MyErrorListener errorListener){
+        Map<String, Object> map = new HashMap<>();
+        map.put("stationId", stationId);
+        VolleyGet(WATER_URL+"waterStationLatestData.do", map, WstationBean.class,myReponseListener,errorListener);
+    }
+
+    /**
+     *
+     * @param stationId
+     * @param timeType
+     * @param myReponseListener
+     * @param errorListener
+     */
+    public  void get_w_station_info(String stationId ,int timeType,MyReponseListener myReponseListener, MyErrorListener errorListener){
+        Map<String, Object> map = new HashMap<>();
+        map.put("stationId", stationId);
+        map.put("timeType", timeType);
+        VolleyGet(WATER_URL+"waterStationData.do", map, SiteInfo.class,myReponseListener,errorListener);
     }
 }
 
