@@ -97,6 +97,7 @@
             />
         <activity android:name=".ui.SitelistActivity" />
         <activity android:name=".ui.WaterSiteDetailActivity" />
+        <activity android:name=".ui.StationDetailActivity" />
 
         <receiver
             android:name=".manager.YSBroadcastReceiver"

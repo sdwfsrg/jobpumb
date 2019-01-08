@@ -45,14 +45,7 @@ public class WaterSiteDetailActivity extends BaseActivity {
     LineChart chart1;
     @BindView(R.id.chart2)
     LineChart chart2;
-    @BindView(R.id.chart3)
-    LineChart chart3;
-    @BindView(R.id.chart4)
-    LineChart chart4;
-    @BindView(R.id.chart5)
-    LineChart chart5;
-    @BindView(R.id.chart6)
-    LineChart chart6;
+
     int defautcount = 24;
     private final LineChart[] charts = new LineChart[6];
     NetValues netValues;
@@ -76,54 +69,7 @@ public class WaterSiteDetailActivity extends BaseActivity {
     TextView btnYear;
 
     String stationid;
-    @BindView(R.id.tv_andan)
-    TextView tvAndan;
-    @BindView(R.id.tv_status_andan)
-    TextView tvStatusAndan;
-    @BindView(R.id.tv_cloo)
-    TextView tvCloo;
-    @BindView(R.id.tv_status_cloo)
-    TextView tvStatusCloo;
-    @BindView(R.id.tv_cod)
-    TextView tvCod;
-    @BindView(R.id.tv_status_cod)
-    TextView tvStatusCod;
-    @BindView(R.id.tv_codm)
-    TextView tvCodm;
-    @BindView(R.id.tv_status_codm)
-    TextView tvStatusCodm;
-    @BindView(R.id.tv_ddl)
-    TextView tvDdl;
-    @BindView(R.id.tv_status_ddl)
-    TextView tvStatusDdl;
-    @BindView(R.id.tv_rjo)
-    TextView tvRjo;
-    @BindView(R.id.tv_status_rjy)
-    TextView tvStatusRjy;
-    @BindView(R.id.tv_ph)
-    TextView tvPh;
-    @BindView(R.id.tv_status_ph)
-    TextView tvStatusPh;
-    @BindView(R.id.tv_zd)
-    TextView tvZd;
-    @BindView(R.id.tv_status_zd)
-    TextView tvStatusZd;
-    @BindView(R.id.tv_zl)
-    TextView tvZl;
-    @BindView(R.id.tv_status_zl)
-    TextView tvStatusZl;
-    @BindView(R.id.tv_zhd)
-    TextView tvZhd;
-    @BindView(R.id.tv_status_zhd)
-    TextView tvStatusZhd;
-    @BindView(R.id.tv_wnl)
-    TextView tvWnl;
-    @BindView(R.id.tv_status_wnl)
-    TextView tvStatusWnl;
-    @BindView(R.id.tv_sw)
-    TextView tvSw;
-    @BindView(R.id.tv_status_sw)
-    TextView tvStatusSw;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -134,10 +80,7 @@ public class WaterSiteDetailActivity extends BaseActivity {
         netValues = NetValues.getInstance(this);
         charts[0] = chart1;
         charts[1] = chart2;
-        charts[2] = chart3;
-        charts[3] = chart4;
-        charts[4] = chart5;
-        charts[5] = chart6;
+
         btnWeek.setBackgroundResource(R.color.colorAccent);
         btnWeek.setTextColor(Color.parseColor("#ffffff"));
         initcurrentdata();
@@ -149,30 +92,8 @@ public class WaterSiteDetailActivity extends BaseActivity {
             @Override
             public void onResponse(BaseVO arg0) {
                 WstationBean wstationBean = (WstationBean) arg0;
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvCloo,wstationBean.getData().getChlorineDioxide().getValue()+wstationBean.getData().getChlorineDioxide().getUnit());
-                setVal(tvCod,wstationBean.getData().getCod().getValue()+wstationBean.getData().getCod().getUnit());
-                setVal(tvCodm,wstationBean.getData().getCodmn().getValue()+wstationBean.getData().getCodmn().getUnit());
-                setVal(tvDdl,wstationBean.getData().getConductivity().getValue()+wstationBean.getData().getConductivity().getUnit());
-                setVal(tvRjo,wstationBean.getData().getDissolvedOxygen().getValue()+wstationBean.getData().getDissolvedOxygen().getUnit());
-                setVal(tvPh,wstationBean.getData().getPhValue().getValue()+wstationBean.getData().getPhValue().getUnit());
-                setVal(tvZd,wstationBean.getData().getTotalNitrogen().getValue()+wstationBean.getData().getTotalNitrogen().getUnit());
-                setVal(tvZl,wstationBean.getData().getTotalPhosphorus().getValue()+wstationBean.getData().getTotalPhosphorus().getUnit());
-                setVal(tvZhd,wstationBean.getData().getTurbidity().getValue()+wstationBean.getData().getTurbidity().getUnit());
-                setVal(tvWnl,wstationBean.getData().getVolume().getValue()+wstationBean.getData().getVolume().getUnit());
-                setVal(tvSw,wstationBean.getData().getWaterTemp().getValue()+wstationBean.getData().getWaterTemp().getUnit());
 
 
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
-                setVal(tvAndan,wstationBean.getData().getAmmoniaNitrogen().getValue()+wstationBean.getData().getAmmoniaNitrogen().getUnit());
             }
         }, new MyErrorListener() {
             @Override

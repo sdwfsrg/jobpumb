@@ -13,6 +13,10 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Environment;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.OrientationHelper;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -41,6 +45,21 @@ public class CommonUtils {
     public static final int NETTYPE_CMNET = 0x03;
 
 
+    public static void setRecycleHorizontal(RecyclerView recyclerView , Context mContext) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(OrientationHelper.HORIZONTAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    public static void setRecycleGrid(RecyclerView recyclerView , Context mContext,int colum) {
+        GridLayoutManager linearLayoutManager = new GridLayoutManager(mContext,colum);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
+    public static void setRecycleVertical(RecyclerView recyclerView , Context mContext) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+    }
 
     public static void  startActivity(Context context, Class clt){
         Intent it=new Intent(context,clt);
@@ -50,6 +69,12 @@ public class CommonUtils {
     public static void  startActivity(Context context, Class clt, String str){
         Intent it=new Intent(context,clt);
         it.putExtra("str",str);
+        context.startActivity(it);
+    }
+    public static void  startActivity(Context context, Class clt, String str,int type){
+        Intent it=new Intent(context,clt);
+        it.putExtra("str",str);
+        it.putExtra("type",type);
         context.startActivity(it);
     }
     public static void  goToWeb(Context context, Class clt, String str){

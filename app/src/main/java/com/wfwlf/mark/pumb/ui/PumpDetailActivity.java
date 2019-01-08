@@ -580,7 +580,7 @@ public class PumpDetailActivity extends BaseActivity implements
                 finish();
                 break;
             case R.id.iv_video:
-                CommonUtils.startActivity(this, VideoRecodeActivity.class, pumpID);
+                CommonUtils.startActivity(this, VideoRecodeActivity.class, pumpID,0);
                 break;
             case R.id.rl_notify:
                 if (warnlist.size() > 0) {

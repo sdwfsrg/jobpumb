@@ -6,6 +6,7 @@ import android.content.Context;
 import com.wfwlf.mark.pumb.bean.CameraInfo;
 import com.wfwlf.mark.pumb.bean.Device;
 import com.wfwlf.mark.pumb.bean.LoginBean;
+import com.wfwlf.mark.pumb.bean.NewSWBean;
 import com.wfwlf.mark.pumb.bean.Site;
 import com.wfwlf.mark.pumb.bean.SiteInfo;
 import com.wfwlf.mark.pumb.bean.Token;
@@ -102,7 +103,11 @@ public class NetValues extends VolleyRequest {
         map.put("pumpId", pumpId);
         VolleyGet(CAMERA_API_URL+"queryCameraByPumpId.do", map, CameraInfo.class,myReponseListener,errorListener);
     }
-
+    public void get_WCamera_list(String stationId ,MyReponseListener myReponseListener, MyErrorListener errorListener){
+        Map<String, Object> map = new HashMap<>();
+        map.put("stationId", stationId);
+        VolleyGet(ROOT_PATH_W+"camera/JobCameraController/cameraList.do", map, CameraInfo.class,myReponseListener,errorListener);
+    }
     public void get_access_token(MyReponseListener myReponseListener, MyErrorListener errorListener){
         VolleyGet(CAMERA_API_URL+"accesstoken.do", null, Token.class,myReponseListener,errorListener);
     }
@@ -144,7 +149,7 @@ public class NetValues extends VolleyRequest {
     public  void get_w_station_info_current(String stationId ,MyReponseListener myReponseListener, MyErrorListener errorListener){
         Map<String, Object> map = new HashMap<>();
         map.put("stationId", stationId);
-        VolleyGet(WATER_URL+"waterStationLatestData.do", map, WstationBean.class,myReponseListener,errorListener);
+        VolleyGet(WATER_URL+"waterStationLatestData.do", map, NewSWBean.class,myReponseListener,errorListener);
     }
 
     /**
@@ -158,7 +163,7 @@ public class NetValues extends VolleyRequest {
         Map<String, Object> map = new HashMap<>();
         map.put("stationId", stationId);
         map.put("timeType", timeType);
-        VolleyGet(WATER_URL+"waterStationData.do", map, SiteInfo.class,myReponseListener,errorListener);
+        VolleyGet(WATER_URL+"waterStationData.do", map, WstationBean.class,myReponseListener,errorListener);
     }
 }
 

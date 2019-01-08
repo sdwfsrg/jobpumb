@@ -1,6 +1,7 @@
 package com.wfwlf.mark.pumb.ui;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -38,14 +39,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Activity
     };
 
     private static final int PERMISSION_STORAGE = 0;
-
+    Context context;
     protected Typeface tfRegular;
     protected Typeface tfLight;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        context=this;
         tfRegular = Typeface.createFromAsset(getAssets(), "OpenSans-Regular.ttf");
         tfLight = Typeface.createFromAsset(getAssets(), "OpenSans-Light.ttf");
     }

@@ -51,6 +51,7 @@ public class SitelistActivity extends BaseActivity {
     NoScrollListView rlWatersite;
     MarkAdapter shopAdapter,shopAdapter1;
     List<Site.DataBean> mdata=new ArrayList<>();
+    List<Site.DataBean> mdata1=new ArrayList<>();
     NetValues netValues;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class SitelistActivity extends BaseActivity {
         rlWatersite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            CommonUtils.startActivity(SitelistActivity.this,WaterSiteDetailActivity.class);
+            CommonUtils.startActivity(SitelistActivity.this,StationDetailActivity.class,mdata1.get(position).getCode());
             }
         });
         netValues.get_site_list(new MyReponseListener() {
@@ -92,7 +93,8 @@ public class SitelistActivity extends BaseActivity {
             @Override
             public void onResponse(BaseVO arg0) {
                 Site site=(Site) arg0;
-                shopAdapter1.setMdata(site.getData());
+                mdata1=site.getData();
+                shopAdapter1.setMdata(mdata1);
             }
         }, new MyErrorListener() {
             @Override

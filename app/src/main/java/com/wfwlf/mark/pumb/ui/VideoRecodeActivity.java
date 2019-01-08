@@ -43,31 +43,49 @@ public class VideoRecodeActivity extends AppCompatActivity {
     VideoAdapter videoAdapter;
     NetValues netValues;
     String pumpID;
+    int type;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_recode);
         ButterKnife.bind(this);
         pumpID=getIntent().getStringExtra("str");
+        type=getIntent().getIntExtra("type",0);
         netValues=NetValues.getInstance(this);
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
         }
         videoAdapter = new VideoAdapter(this);
         lvVideo.setAdapter(videoAdapter);
-        netValues.get_Camera_list(pumpID, new MyReponseListener() {
-            @Override
-            public void onResponse(BaseVO arg0) {
-                CameraInfo info=(CameraInfo)arg0;
-                videoAdapter.setMdata(info.getData());
+        if(type==0){
+            netValues.get_Camera_list(pumpID, new MyReponseListener() {
+                @Override
+                public void onResponse(BaseVO arg0) {
+                    CameraInfo info=(CameraInfo)arg0;
+                    videoAdapter.setMdata(info.getData());
 
-            }
-        }, new MyErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                super.onErrorResponse(error);
-            }
-        });
+                }
+            }, new MyErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    super.onErrorResponse(error);
+                }
+            });
+        }else {
+            netValues.get_WCamera_list(pumpID, new MyReponseListener() {
+                @Override
+                public void onResponse(BaseVO arg0) {
+                    CameraInfo info=(CameraInfo)arg0;
+                    videoAdapter.setMdata(info.getData());
+                }
+            }, new MyErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    super.onErrorResponse(error);
+                }
+            });
+        }
+
         netValues.get_access_token(new MyReponseListener() {
             @Override
             public void onResponse(BaseVO arg0) {

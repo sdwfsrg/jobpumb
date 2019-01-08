@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -57,7 +58,7 @@ import butterknife.OnClick;
 /**
  *
  */
-public class MainActivity extends AppCompatActivity implements SensorEventListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener,StationPop.DianpopListner {
 
     // 定位相关
     LocationClient mLocClient;
@@ -78,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     AutoLinearLayout llPumpList;
     @BindView(R.id.rl_info)
     AutoRelativeLayout rlInfo;
-
+    StationPop.DianpopListner dianpopListner;
     private LocationMode mCurrentMode;
     BitmapDescriptor mCurrentMarker;
     private static final int accuracyCircleFillColor = 0xAAFFFF88;
@@ -107,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     MarkAdapter shopAdapter;
     List<Site.DataBean> mdata=new ArrayList<>();
     float zoom=0;
+    StationPop stationPop;
     // 初始化全局 bitmap 信息，不用时及时 recycle
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -114,6 +116,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
         ButterKnife.bind(this);
+        dianpopListner=this;
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);//获取传感器管理服务
         mCurrentMode = LocationMode.NORMAL;
         netValues = NetValues.getInstance(this);
@@ -189,9 +192,22 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,listBean.getCode());
                 }else if(listBean.getType()==2){
                     if(listBean.getQty()>1){
-                        Toast.makeText(MainActivity.this, ""+listBean.getCode()+listBean.getNickName(), Toast.LENGTH_SHORT).show();
+                        List<Site.DataBean> mdata=new ArrayList<>();
+                        String[] codes =listBean.getCode().split(",");
+                        String[]  names=listBean.getNickName().split(",");
+                        for(int i=0;i<codes.length;i++){
+                            Site.DataBean dataBean=new Site.DataBean();
+                            dataBean.setCode(codes[i]);
+                            if(names.length>i){
+                                dataBean.setName(names[i]);
+                            }
+                            mdata.add(dataBean);
+                        }
+                        stationPop=new StationPop(MainActivity.this,dianpopListner,mdata);
+                        stationPop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER,0,0);
+//                        Toast.makeText(MainActivity.this, ""+listBean.getCode()+listBean.getNickName(), Toast.LENGTH_SHORT).show();
                     }else {
-                        CommonUtils.startActivity(MainActivity.this, WaterSiteDetailActivity.class,listBean.getCode());
+                        CommonUtils.startActivity(MainActivity.this, StationDetailActivity.class,listBean.getCode());
                     }
                 }
 
@@ -335,7 +351,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-
+    @Override
+    public void confirm(String stationid) {
+        CommonUtils.startActivity(MainActivity.this, StationDetailActivity.class,stationid);
+    }
 
 
     /**

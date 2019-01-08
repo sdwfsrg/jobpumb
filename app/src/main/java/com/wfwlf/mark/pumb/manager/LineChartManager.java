@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.wfwlf.mark.pumb.bean.WstationBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +33,7 @@ public class LineChartManager {
     public LineChartManager(LineChart mLineChart) {
         this.lineChart = mLineChart;
         leftAxis = lineChart.getAxisLeft();
-        leftAxis.setTextSize(9);
+        leftAxis.setTextSize(8);
         leftAxis.setDrawLabels(true
         );
         rightAxis = lineChart.getAxisRight();
@@ -79,20 +80,21 @@ public class LineChartManager {
      * @param color
      * @param mode        折线图是否填充
      */
-    private void initLineDataSet(LineDataSet lineDataSet, int color, boolean mode) {
+    private void initLineDataSet(LineDataSet lineDataSet, int color, boolean mode,float fontsiz) {
         lineDataSet.setColor(color);
         lineDataSet.setCircleColor(color);
         lineDataSet.setLineWidth(1f);
         lineDataSet.setCircleRadius(1f);
         //设置曲线值的圆点是实心还是空心
         lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setValueTextSize(0f);
+        lineDataSet.setValueTextSize(fontsiz);
+        lineDataSet.setValueTextColor(color);
         //设置折线图填充
         lineDataSet.setDrawFilled(mode);
         lineDataSet.setFormLineWidth(1f);
         lineDataSet.setFormSize(12.f);
         //填充颜色.透明度
-//        lineDataSet.setFillColor(Color.BLUE);
+        lineDataSet.setFillColor(color);
         lineDataSet.setFillAlpha(35);
         //线模式为圆滑曲线（默认折线）
         lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
@@ -115,7 +117,7 @@ public class LineChartManager {
         }
         // 每一个LineDataSet代表一条线
         LineDataSet lineDataSet = new LineDataSet(entries, label);
-        initLineDataSet(lineDataSet, color, true);
+        initLineDataSet(lineDataSet, color, true,3);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();
         dataSets.add(lineDataSet);
@@ -124,7 +126,34 @@ public class LineChartManager {
         xAxis.setLabelCount(xAxisValues.size(), true);
         lineChart.setData(data);
     }
+    public void showLineChart(final List<WstationBean.DataBeanX.DataBean> dataBeanList, String label, int color) {
+        initLineChart();
+        ArrayList<Entry> entries;
+        lineChart.setDescription(null);
+        lineChart.invalidate();
+        entries = new ArrayList<>();
+        for (int i = 0; i < dataBeanList.size(); i++) {
+            entries.add(new Entry(i, Float.parseFloat(dataBeanList.get(i).getDataValue())));
+        }
+        // 每一个LineDataSet代表一条线
+        LineDataSet lineDataSet = new LineDataSet(entries, label);
+        initLineDataSet(lineDataSet, color, true,12);
 
+        ArrayList<ILineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(lineDataSet);
+        LineData data = new LineData(dataSets);
+        //设置X轴的刻度数
+//        xAxis.setLabelCount(dataBeanList.size(), true);
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                    return "";
+
+            }
+        });
+
+        lineChart.setData(data);
+    }
     /**
      * 展示线性图(多条)
      *
@@ -146,7 +175,7 @@ public class LineChartManager {
             }
             LineDataSet lineDataSet = new LineDataSet(entries, labels.get(i));
 
-            initLineDataSet(lineDataSet, colours.get(i), false);
+            initLineDataSet(lineDataSet, colours.get(i), false,0);
             dataSets.add(lineDataSet);
         }
         LineData data = new LineData(dataSets);

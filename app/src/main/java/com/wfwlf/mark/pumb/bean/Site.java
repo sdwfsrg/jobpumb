@@ -76,7 +76,7 @@ public class Site extends BaseVO {
         private String coordinate;
         private String name;
         private String nickName;
-        private int type;
+        private int type=1;
         private int qty=0;
 
         public int getQty() {
