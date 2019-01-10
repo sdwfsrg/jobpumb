@@ -67,13 +67,13 @@ public class SitelistActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CommonUtils.startActivity(SitelistActivity.this, PumpDetailActivity.class,mdata.get(position).getCode());
+                CommonUtils.startActivity(SitelistActivity.this, PumpDetailActivity.class,mdata.get(position).getCode(),mdata.get(position).getName());
             }
         });
         rlWatersite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            CommonUtils.startActivity(SitelistActivity.this,StationDetailActivity.class,mdata1.get(position).getCode());
+            CommonUtils.startActivity(SitelistActivity.this,StationDetailActivity.class,mdata1.get(position).getCode(),mdata1.get(position).getNickName());
             }
         });
         netValues.get_site_list(new MyReponseListener() {

@@ -119,13 +119,17 @@ public class PumpDetailActivity extends BaseActivity implements
     YAxis yAxis;
     XAxis xAxis;
     final ArrayList<Entry> values = new ArrayList<>();
-
+    String  title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pump_detail);
         ButterKnife.bind(this);
 //        setTitle("LineChartActivity1");
+        title=getIntent().getStringExtra("title");
+        if(CommonUtils.checkNull(title)){
+            titleTv.setText(title);
+        }
         refreshLayout.setEnableLoadMore(false);
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {

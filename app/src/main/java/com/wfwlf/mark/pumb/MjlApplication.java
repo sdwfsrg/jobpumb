@@ -4,10 +4,8 @@ import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.videogo.openapi.EZOpenSDK;
-import com.wfwlf.mark.pumb.manager.LocationService;
 
 public class MjlApplication  extends Application{
-   public static LocationService locationService;
     public static String AppKey = "4ce53359805c4675ba019ea88c547bcb";
     public static EZOpenSDK getOpenSDK() {
         return EZOpenSDK.getInstance();
@@ -16,7 +14,7 @@ public class MjlApplication  extends Application{
     public void onCreate() {
         super.onCreate();
         SDKInitializer.initialize(this);
-        locationService = new LocationService(getApplicationContext());
+
         initSDK();
     }
     private void initSDK() {

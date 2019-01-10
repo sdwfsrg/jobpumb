@@ -36,7 +36,7 @@
         <meta-data android:name="Mob-AppSecret" android:value="ede7bee617b8cea05371b0d55cb6ffc2"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="FrRp8079ma3kg80rlCpyrcUpcLYGNYv2" />
+            android:value="Mha0rBV5xlzVcR7HvLoL0K5BnxlbhOG4" />
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

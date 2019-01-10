@@ -57,6 +57,7 @@ public class LineChartManager {
         Legend legend = lineChart.getLegend();
         legend.setForm(Legend.LegendForm.LINE);
         legend.setTextSize(10f);
+        legend.setEnabled(false);
         //显示位置
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
         legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -84,10 +85,10 @@ public class LineChartManager {
         lineDataSet.setColor(color);
         lineDataSet.setCircleColor(color);
         lineDataSet.setLineWidth(1f);
-        lineDataSet.setCircleRadius(1f);
+        lineDataSet.setCircleRadius(2f);
         //设置曲线值的圆点是实心还是空心
         lineDataSet.setDrawCircleHole(true);
-        lineDataSet.setValueTextSize(fontsiz);
+        lineDataSet.setValueTextSize(0);
         lineDataSet.setValueTextColor(color);
         //设置折线图填充
         lineDataSet.setDrawFilled(mode);
@@ -137,6 +138,7 @@ public class LineChartManager {
         }
         // 每一个LineDataSet代表一条线
         LineDataSet lineDataSet = new LineDataSet(entries, label);
+        lineDataSet.setLabel(null);
         initLineDataSet(lineDataSet, color, true,12);
 
         ArrayList<ILineDataSet> dataSets = new ArrayList<>();

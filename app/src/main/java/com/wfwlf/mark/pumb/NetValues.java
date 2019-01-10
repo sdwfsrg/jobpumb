@@ -41,7 +41,7 @@ public class NetValues extends VolleyRequest {
 
     private final static String ROOT_PATH = "http://106.13.47.98:2001/psom/";
 
-    private final static String ROOT_PATH_W = "http://10.28.110.134:9091/szsw/";
+    private final static String ROOT_PATH_W = "http://106.13.47.98:3001/szsw/";
 
 //private final static String ROOT_PATH = "http://10.28.110.134:9091/psom/";
     private final static String CAMERA_API_URL = ROOT_PATH + "JobCameraController/";

@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,mdata.get(position).getCode());
+                CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,mdata.get(position).getCode(),mdata.get(position).getName());
             }
         });
         initdata();
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             public boolean onMarkerClick(Marker marker) {
                 Site.DataBean listBean = (Site.DataBean) marker.getExtraInfo().getSerializable("BEAN");
                 if(listBean.getType()==1){
-                    CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,listBean.getCode());
+                    CommonUtils.startActivity(MainActivity.this, PumpDetailActivity.class,listBean.getCode(),listBean.getName());
                 }else if(listBean.getType()==2){
                     if(listBean.getQty()>1){
                         List<Site.DataBean> mdata=new ArrayList<>();
@@ -207,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                         stationPop.showAtLocation(getWindow().getDecorView(), Gravity.CENTER,0,0);
 //                        Toast.makeText(MainActivity.this, ""+listBean.getCode()+listBean.getNickName(), Toast.LENGTH_SHORT).show();
                     }else {
-                        CommonUtils.startActivity(MainActivity.this, StationDetailActivity.class,listBean.getCode());
+                        CommonUtils.startActivity(MainActivity.this, StationDetailActivity.class,listBean.getCode(),listBean.getNickName());
                     }
                 }
 
@@ -244,18 +244,26 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     OverlayOptions options = new MarkerOptions().position(latLng).icon(descriptor).extraInfo(bundle).draggable(true);
                     Marker marker = (Marker) mBaiduMap.addOverlay(options);
                 }
-                mBaiduMap.setOnMapLoadedCallback(new BaiduMap.OnMapLoadedCallback() {
-                    @Override
-                    public void onMapLoaded() {
-                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-                        for(LatLng latLng : latLngs){
-                            builder = builder.include(latLng);
-                        }
-                        LatLngBounds latlngBounds = builder.build();
-                        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(latlngBounds,mMapView.getWidth(),mMapView.getHeight());
-                        mBaiduMap.animateMapStatus(u);
-                    }
-                });
+
+                for(LatLng latLng : latLngs){
+                    builder = builder.include(latLng);
+                }
+                LatLngBounds latlngBounds = builder.build();
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(latlngBounds,mMapView.getWidth(),mMapView.getHeight());
+                mBaiduMap.animateMapStatus(u);
+                getwlaction();
+//                mBaiduMap.setOnMapLoadedCallback(new BaiduMap.OnMapLoadedCallback() {
+//                    @Override
+//                    public void onMapLoaded() {
+//                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//                        for(LatLng latLng : latLngs){
+//                            builder = builder.include(latLng);
+//                        }
+//                        LatLngBounds latlngBounds = builder.build();
+//                        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(latlngBounds,mMapView.getWidth(),mMapView.getHeight());
+//                        mBaiduMap.animateMapStatus(u);
+//                    }
+//                });
 
 
             }
@@ -267,6 +275,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         });
 
 
+        getwlaction();
+    }
+
+    private void getwlaction() {
         netValues.get_w_station_map_list(new MyReponseListener() {
             @Override
             public void onResponse(BaseVO arg0) {
@@ -276,24 +288,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
                 for (Site.DataBean bean : mdata) {
                     String[] position=bean.getCoordinate().split(",");
-                    double lng=Double.parseDouble(position[0]);
-                    double lat=Double.parseDouble(position[1]);
-                    builder.include(new LatLng(lat,lng));
-                    LatLng latLng = new LatLng(lat, lng);
-                    Bundle bundle = new Bundle();
-                    latLngs.add(latLng);
-                    bundle.putSerializable("BEAN", bean);
-                    View view = View.inflate(getApplicationContext(), R.layout.item_bean, null);
-                    TextView tView = (TextView)view.findViewById(R.id.tv_name);
-                    ImageView imageView = (ImageView)view.findViewById(R.id.iv_position);
-                    imageView.setImageResource(R.mipmap.w_position);
-                    tView.setText(bean.getName()+ "");
-                    //将View转化为Bitmap
-                    BitmapDescriptor descriptor = BitmapDescriptorFactory.fromView(view);
-                    OverlayOptions options = new MarkerOptions().position(latLng).icon(descriptor).extraInfo(bundle).draggable(true);
-                    Marker marker = (Marker) mBaiduMap.addOverlay(options);
+                    if(position!=null&&position.length>1){
+                        double lng=Double.parseDouble(position[0]);
+                        double lat=Double.parseDouble(position[1]);
+                        builder.include(new LatLng(lat,lng));
+                        LatLng latLng = new LatLng(lat, lng);
+                        Bundle bundle = new Bundle();
+                        latLngs.add(latLng);
+                        bundle.putSerializable("BEAN", bean);
+                        View view = View.inflate(getApplicationContext(), R.layout.item_bean, null);
+                        TextView tView = (TextView)view.findViewById(R.id.tv_name);
+                        ImageView imageView = (ImageView)view.findViewById(R.id.iv_position);
+                        imageView.setImageResource(R.mipmap.w_position);
+                        tView.setText(bean.getName()+ "");
+                        //将View转化为Bitmap
+                        BitmapDescriptor descriptor = BitmapDescriptorFactory.fromView(view);
+                        OverlayOptions options = new MarkerOptions().position(latLng).icon(descriptor).extraInfo(bundle).draggable(true);
+                        Marker marker = (Marker) mBaiduMap.addOverlay(options);
+                    }
+
                 }
 
+                for(LatLng latLng : latLngs){
+                    builder = builder.include(latLng);
+                }
+                LatLngBounds latlngBounds = builder.build();
+                MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(latlngBounds,mMapView.getWidth(),mMapView.getHeight());
+                mBaiduMap.animateMapStatus(u);
 //                MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(builder.build());
 //
 //                mBaiduMap.setMapStatus(u);
@@ -305,7 +326,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 //                        .zoom(14.5f);
 //                mBaiduMap.animateMapStatus(MapStatusUpdateFactory
 //                        .newMapStatus(builder1.build()));
-
+//                mBaiduMap.setOnMapLoadedCallback(new BaiduMap.OnMapLoadedCallback() {
+//                    @Override
+//                    public void onMapLoaded() {
+//                        Toast.makeText(MainActivity.this, "11111", Toast.LENGTH_SHORT).show();
+//                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+//                        for(LatLng latLng : latLngs){
+//                            builder = builder.include(latLng);
+//                        }
+//                        LatLngBounds latlngBounds = builder.build();
+//                        MapStatusUpdate u = MapStatusUpdateFactory.newLatLngBounds(latlngBounds,mMapView.getWidth(),mMapView.getHeight());
+//                        mBaiduMap.animateMapStatus(u);
+//                    }
+//                });
 
             }
         }, new MyErrorListener() {
@@ -352,8 +385,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     @Override
-    public void confirm(String stationid) {
-        CommonUtils.startActivity(MainActivity.this, StationDetailActivity.class,stationid);
+    public void confirm(String stationid,String name) {
+        CommonUtils.startActivity(MainActivity.this, StationDetailActivity.class,stationid,name);
     }
 
 

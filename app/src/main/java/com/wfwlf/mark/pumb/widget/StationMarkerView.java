@@ -46,8 +46,9 @@ public class StationMarkerView extends MarkerView {
             tvContent.setText(Utils.formatNumber(ce.getHigh(), 0, true));
         } else {
             final DecimalFormat mFormat = new DecimalFormat("###,###,##.#");
-            String time=data.get((int)e.getX()).getDataTime();
-            tvContent.setText(time);
+            String time=data.get((int)e.getX()).getDataTime().substring(0,16);
+            String val=data.get((int)e.getX()).getDataValue();
+            tvContent.setText(time+"  ->  "+val);
         }
 
         super.refreshContent(e, highlight);

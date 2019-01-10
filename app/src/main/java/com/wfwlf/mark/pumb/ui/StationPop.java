@@ -43,7 +43,7 @@ public class StationPop extends PopupWindow {
         vh.RvStation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dianpopListner.confirm(mdata.get(position).getCode());
+                dianpopListner.confirm(mdata.get(position).getCode(),mdata.get(position).getNickName());
                 dismiss();
             }
         });
@@ -74,7 +74,7 @@ public class StationPop extends PopupWindow {
         });
     }
 public interface  DianpopListner{
-        void confirm(String stationid);
+        void confirm(String stationid,String name);
     }
     static class ViewHolder {
         @BindView(R.id.rl_station)

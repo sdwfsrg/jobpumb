@@ -78,6 +78,15 @@ public class NewSWBean extends BaseVO {
         private String name;
         private String status;
         private String value;
+        private String dataTime;
+
+        public String getDataTime() {
+            return dataTime;
+        }
+
+        public void setDataTime(String dataTime) {
+            this.dataTime = dataTime;
+        }
 
         public String getUnit() {
             return unit;

@@ -76,7 +76,6 @@
         android:id="@+id/no_camera_tip_ly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title_bar"
         android:layout_centerInParent="true"
         android:onClick="onClick"
         android:orientation="vertical"

@@ -71,6 +71,12 @@ public class CommonUtils {
         it.putExtra("str",str);
         context.startActivity(it);
     }
+    public static void  startActivity(Context context, Class clt, String str,String title){
+        Intent it=new Intent(context,clt);
+        it.putExtra("str",str);
+        it.putExtra("title",title);
+        context.startActivity(it);
+    }
     public static void  startActivity(Context context, Class clt, String str,int type){
         Intent it=new Intent(context,clt);
         it.putExtra("str",str);

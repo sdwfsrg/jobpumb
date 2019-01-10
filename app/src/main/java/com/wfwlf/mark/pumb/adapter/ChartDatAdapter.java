@@ -62,7 +62,7 @@ public class ChartDatAdapter extends BaseQuickAdapter<WstationBean.DataBeanX, Ch
     private void initchart(LineChart chart,int postion,WstationBean.DataBeanX item) {
         List<WstationBean.DataBeanX.DataBean> mdata=item.getData();
         lineChartManager=new LineChartManager(chart);
-        lineChartManager.showLineChart(item.getData(),item.getDataTypeName(),colors[postion % colors.length]);
+        lineChartManager.showLineChart(item.getData(),"",colors[postion % colors.length]);
         lineChartManager.setYAxis(getMaxVUL(item.getData()), getMinVUL(item.getData()), 5);
 //        if(mdata.size()>0){
 //            setupChart(chart,getData(mdata,colors[2 % colors.length]));
@@ -120,9 +120,9 @@ public class ChartDatAdapter extends BaseQuickAdapter<WstationBean.DataBeanX, Ch
         set1.setHighLightColor(color);
         set1.setDrawValues(true);
         set1.setValueTextColor(color);
-
+        set1.setValueTextSize(0);
         set1.setFormLineWidth(1f);
-//            set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
+//      set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
         set1.setFormSize(15.f);
         // create a data object with the data sets
         return new LineData(set1);

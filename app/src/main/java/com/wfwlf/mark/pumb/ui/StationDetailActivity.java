@@ -42,6 +42,9 @@ public class StationDetailActivity extends BaseActivity {
     TextView btnMouth;
     @BindView(R.id.btn_season)
     TextView btnSeason;
+    @BindView(R.id.tv_current_time)
+    TextView tvCurrentTime;
+
     @BindView(R.id.rv_chart_data)
     RecyclerView rvChartData;
     CurrDatAdapter currDatAdapter;
@@ -49,12 +52,17 @@ public class StationDetailActivity extends BaseActivity {
     NetValues netValues;
     String stationid;
     int timetype=1;
+    String title;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_site);
         ButterKnife.bind(this);
         stationid = getIntent().getStringExtra("str");
+        title=getIntent().getStringExtra("title");
+        if(CommonUtils.checkNull(title)){
+            titleTv.setText(title);
+        }
         netValues = NetValues.getInstance(this);
         chartDatAdapter=new ChartDatAdapter();
         currDatAdapter=new CurrDatAdapter();
@@ -75,6 +83,7 @@ public class StationDetailActivity extends BaseActivity {
                 super.onResponse(arg0);
                 WstationBean wstationBean=(WstationBean)arg0;
                 chartDatAdapter.setNewData(wstationBean.getData());
+
             }
         }, new MyErrorListener() {
             @Override
@@ -91,6 +100,9 @@ public class StationDetailActivity extends BaseActivity {
             public void onResponse(BaseVO arg0) {
                 NewSWBean wstationBean = (NewSWBean) arg0;
                 currDatAdapter.setNewData(wstationBean.getData());
+                if(wstationBean.getData().size()>0){
+                    tvCurrentTime.setText(wstationBean.getData().get(0).getDataTime());
+                }
 
             }
         }, new MyErrorListener() {
