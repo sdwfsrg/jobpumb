@@ -1,7 +1,13 @@
 package com.wfwlf.mark.pumb.volley;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.wfwlf.mark.pumb.ui.MainActivity;
+
+import java.io.File;
+import java.util.HashMap;
 import java.util.Map;
 
 public class VolleyRequest {
@@ -41,4 +47,12 @@ public class VolleyRequest {
         qureyURL = qureyURL + param;
         return qureyURL;
     }
+
+    private void UploadFile(String url,Map<String, String> params,Map<String, File> files,Class cls, MyReponseListener myReponseListener, MyErrorListener myErrorListener){
+        // showProgress();
+        MyVolley.addPutUploadFileRequest(
+                url,
+                files, cls, params, myReponseListener, myErrorListener, null);
+    }
+
 }
