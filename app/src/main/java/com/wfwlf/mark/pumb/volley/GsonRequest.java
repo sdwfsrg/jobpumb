@@ -20,7 +20,7 @@ import java.util.Map.Entry;
 public class GsonRequest extends Request<BaseVO>{
 	private static final String TAG="GsonRequest";
 	//超时时间，默认10秒
-	private int defaultHttpTimeOut=10*1000;
+	private int defaultHttpTimeOut=30*1000;
 	//回调监听
 	private Listener<BaseVO> listener;
 	//返回类型

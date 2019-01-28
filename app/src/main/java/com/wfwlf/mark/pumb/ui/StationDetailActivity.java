@@ -1,8 +1,11 @@
 package com.wfwlf.mark.pumb.ui;
 
+import android.annotation.TargetApi;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -51,29 +54,35 @@ public class StationDetailActivity extends BaseActivity {
     ChartDatAdapter chartDatAdapter;
     NetValues netValues;
     String stationid;
-    int timetype=1;
+    int timetype = 1;
     String title;
+    @BindView(R.id.nv_data)
+    NestedScrollView nvData;
+
+
+    @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_water_site);
         ButterKnife.bind(this);
         stationid = getIntent().getStringExtra("str");
-        title=getIntent().getStringExtra("title");
-        if(CommonUtils.checkNull(title)){
+        title = getIntent().getStringExtra("title");
+        if (CommonUtils.checkNull(title)) {
             titleTv.setText(title);
         }
         netValues = NetValues.getInstance(this);
-        chartDatAdapter=new ChartDatAdapter();
-        currDatAdapter=new CurrDatAdapter();
-        CommonUtils.setRecycleVertical(rvChartData,this);
-        CommonUtils.setRecycleVertical(rvCurrentData,this);
+        chartDatAdapter = new ChartDatAdapter();
+        currDatAdapter = new CurrDatAdapter();
+        CommonUtils.setRecycleVertical(rvChartData, this);
+        CommonUtils.setRecycleVertical(rvCurrentData, this);
         rvChartData.setAdapter(chartDatAdapter);
         rvCurrentData.setAdapter(currDatAdapter);
         btnWeek.setBackgroundResource(R.color.colorAccent);
         btnWeek.setTextColor(Color.parseColor("#ffffff"));
         initcurrentdata();
         initchartdata();
+
     }
 
     private void initchartdata() {
@@ -81,7 +90,7 @@ public class StationDetailActivity extends BaseActivity {
             @Override
             public void onResponse(BaseVO arg0) {
                 super.onResponse(arg0);
-                WstationBean wstationBean=(WstationBean)arg0;
+                WstationBean wstationBean = (WstationBean) arg0;
                 chartDatAdapter.setNewData(wstationBean.getData());
 
             }
@@ -100,10 +109,10 @@ public class StationDetailActivity extends BaseActivity {
             public void onResponse(BaseVO arg0) {
                 NewSWBean wstationBean = (NewSWBean) arg0;
                 currDatAdapter.setNewData(wstationBean.getData());
-                if(wstationBean.getData().size()>0){
+                chartDatAdapter.notifyDataSetChanged();
+                if (wstationBean.getData().size() > 0) {
                     tvCurrentTime.setText(wstationBean.getData().get(0).getDataTime());
                 }
-
             }
         }, new MyErrorListener() {
             @Override
@@ -125,7 +134,7 @@ public class StationDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.iv_video:
-                CommonUtils.startActivity(context,VideoRecodeActivity.class,stationid,1);
+                CommonUtils.startActivity(context, VideoRecodeActivity.class, stationid, 1);
                 break;
             case R.id.btn_week:
                 timetype = 1;

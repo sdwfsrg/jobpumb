@@ -27,7 +27,7 @@ import java.util.Map;
 public class XMLRequest extends Request<XmlPullParser>{
 	private Listener<XmlPullParser> mListener;
 	//超时时间，默认10秒
-	private int defaultHttpTimeOut=10*1000;
+	private int defaultHttpTimeOut=30*1000;
 	//请求参数
 	private Map<String,String> methodBody;
 

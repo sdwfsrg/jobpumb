@@ -2,6 +2,7 @@ package com.wfwlf.mark.pumb.adapter;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
@@ -14,6 +15,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.listener.ChartTouchListener;
+import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.wfwlf.mark.pumb.R;
 import com.wfwlf.mark.pumb.bean.SiteInfo;
 import com.wfwlf.mark.pumb.bean.WstationBean;
@@ -38,16 +41,25 @@ public class ChartDatAdapter extends BaseQuickAdapter<WstationBean.DataBeanX, Ch
     public ChartDatAdapter() {
         super(R.layout.item_chart);
     }
+   public int dismissmarkver=0;
+
+    public void setDismissmarkver(int dismissmarkver) {
+        this.dismissmarkver = dismissmarkver;
+    }
 
     @Override
     protected void convert(ViewHolder helper, WstationBean.DataBeanX item) {
             helper.tvTitle.setText(item.getDataTypeName()+"变化");
             initchart(helper.chart,helper.getPosition(),item);
-         StationMarkerView mv = new StationMarkerView(this.mContext, R.layout.custom_marker_view,item.getData());
+            StationMarkerView mv = new StationMarkerView(this.mContext, R.layout.custom_marker_view,item.getData());
 
             // Set the marker to the chart
             mv.setChartView(helper.chart);
             helper.chart.setMarker(mv);
+            if(dismissmarkver==1){
+                helper.chart.highlightValues(null);
+            }
+
     }
     private final int[] colors = new int[]{
             Color.rgb(137, 230, 81),
@@ -59,11 +71,53 @@ public class ChartDatAdapter extends BaseQuickAdapter<WstationBean.DataBeanX, Ch
             ,
             Color.rgb(150, 154, 194)
     };
-    private void initchart(LineChart chart,int postion,WstationBean.DataBeanX item) {
+    private void initchart(final LineChart chart, int postion, WstationBean.DataBeanX item) {
         List<WstationBean.DataBeanX.DataBean> mdata=item.getData();
         lineChartManager=new LineChartManager(chart);
         lineChartManager.showLineChart(item.getData(),"",colors[postion % colors.length]);
         lineChartManager.setYAxis(getMaxVUL(item.getData()), getMinVUL(item.getData()), 5);
+        chart.setOnChartGestureListener(new OnChartGestureListener() {
+            @Override
+            public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+
+            }
+
+            @Override
+            public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
+                if (lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP)
+                    chart.highlightValues(null);
+            }
+
+            @Override
+            public void onChartLongPressed(MotionEvent me) {
+
+            }
+
+            @Override
+            public void onChartDoubleTapped(MotionEvent me) {
+
+            }
+
+            @Override
+            public void onChartSingleTapped(MotionEvent me) {
+
+            }
+
+            @Override
+            public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
+
+            }
+
+            @Override
+            public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
+
+            }
+
+            @Override
+            public void onChartTranslate(MotionEvent me, float dX, float dY) {
+
+            }
+        });
 //        if(mdata.size()>0){
 //            setupChart(chart,getData(mdata,colors[2 % colors.length]));
 //        }

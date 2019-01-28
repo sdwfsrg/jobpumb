@@ -149,7 +149,13 @@ public class LineChartManager {
         xAxis.setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
+                if(dataBeanList.size()>value)
+                {
+                    return dataBeanList.get((int)value).getDataTime().substring(11,16);
+                }else {
                     return "";
+                }
+
 
             }
         });
