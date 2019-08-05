@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IFillFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
@@ -179,9 +180,9 @@ public class ChartDetailActivity extends BaseActivity implements OnChartValueSel
 
     private void setChartData(List<WaterChange.DataBean> chartdatas) {
         values.clear();
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
+        xAxis.setValueFormatter(new ValueFormatter() {
             @Override
-            public String getFormattedValue(float value, AxisBase axis) {
+            public String getFormattedValue(float value) {
                 return values.get((int) (value)).getData() + "";
             }
         });
@@ -209,9 +210,9 @@ public class ChartDetailActivity extends BaseActivity implements OnChartValueSel
         // draw dashed line
 //            set1.enableDashedLine(10f, 5f, 0f);
         final DecimalFormat mFormat = new DecimalFormat("###,###,##.#");
-        set1.setValueFormatter(new IValueFormatter() {
+        set1.setValueFormatter(new ValueFormatter() {
             @Override
-            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+            public String getFormattedValue(float value) {
                 return mFormat.format(value);
             }
         });

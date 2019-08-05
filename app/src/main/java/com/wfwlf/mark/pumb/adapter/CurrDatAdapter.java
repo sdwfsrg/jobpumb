@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.wfwlf.mark.pumb.R;
 import com.wfwlf.mark.pumb.bean.NewSWBean;
 import com.wfwlf.mark.pumb.bean.WstationBean;
+import com.wfwlf.mark.pumb.util.CommonUtils;
 
 import java.util.List;
 
@@ -29,7 +30,12 @@ public class CurrDatAdapter extends BaseQuickAdapter<NewSWBean.DataBean, CurrDat
     @Override
     protected void convert(ViewHolder helper, NewSWBean.DataBean item) {
                 helper.tvTitle.setText(item.getName());
-                helper.tvVal.setText(item.getValue()+item.getUnit());
+                if(CommonUtils.checkNull(item.getValue())){
+                    helper.tvVal.setText(item.getValue()+item.getUnit());
+                }else {
+                    helper.tvVal.setText("--");
+                }
+
                 if("正常".equals(item.getStatus())){
                     helper.tvStatus.setTextColor(Color.parseColor("#66e97f"));
                 }else {

@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.wfwlf.mark.pumb.bean.WstationBean;
 
@@ -50,8 +51,8 @@ public class LineChartManager {
         lineChart.setDrawBorders(true);
 
         //设置动画效果
-        lineChart.animateY(1000, Easing.EasingOption.Linear);
-        lineChart.animateX(1000, Easing.EasingOption.Linear);
+        lineChart.animateY(1000, Easing.Linear);
+        lineChart.animateX(1000, Easing.Linear);
 
         //折线图例 标签 设置
         Legend legend = lineChart.getLegend();
@@ -146,9 +147,10 @@ public class LineChartManager {
         LineData data = new LineData(dataSets);
         //设置X轴的刻度数
 //        xAxis.setLabelCount(dataBeanList.size(), true);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
+        xAxis.setValueFormatter(new
+                                        ValueFormatter() {
             @Override
-            public String getFormattedValue(float value, AxisBase axis) {
+            public String getFormattedValue(float value) {
                 if(dataBeanList.size()>value)
                 {
                     return dataBeanList.get((int)value).getDataTime().substring(11,16);
@@ -188,9 +190,9 @@ public class LineChartManager {
         }
         LineData data = new LineData(dataSets);
         xAxis.setLabelCount(xAxisValues.size(), true);
-        xAxis.setValueFormatter(new IAxisValueFormatter() {
+        xAxis.setValueFormatter(new ValueFormatter() {
             @Override
-            public String getFormattedValue(float value, AxisBase axis) {
+            public String getFormattedValue(float value) {
                 return datas.get((int) (value)) + "";
             }
         });
